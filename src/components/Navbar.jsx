@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
+import { RiArrowRightUpBoxFill } from "react-icons/ri";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
@@ -97,6 +98,7 @@ const Navbar = () => {
               </Link>
               <Link to="/register" className="btn btn-sm lg:btn-md font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all">
                 Get Started
+                <RiArrowRightUpBoxFill />
               </Link>
             </>
           )}
