@@ -32,8 +32,14 @@ const DashboardLayout = () => {
     { path: '/dashboard/analytics', label: 'Analytics', icon: FiBarChart2 },
   ];
 
-  // Get links based on role (for now only admin)
-  const sidebarLinks = userRole === 'admin' ? adminLinks : [];
+  // Moderator sidebar links
+  const moderatorLinks = [
+    { path: '/dashboard', label: 'My Profile', icon: FiUser, end: true },
+    { path: '/dashboard/manage-applications', label: 'Manage Applications', icon: FiBook },
+  ];
+
+  // Get links based on role
+  const sidebarLinks = userRole === 'admin' ? adminLinks : userRole === 'moderator' ? moderatorLinks : [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-[#26CCC2]/10 to-[#6AECE1]/10">

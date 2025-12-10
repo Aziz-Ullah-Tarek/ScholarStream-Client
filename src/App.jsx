@@ -11,6 +11,7 @@ import AddScholarship from './pages/AddScholarship';
 import ManageScholarships from './pages/ManageScholarships';
 import ManageUsers from './pages/ManageUsers';
 import Analytics from './pages/Analytics';
+import ManageApplications from './pages/ManageApplications';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFound';
 
@@ -40,11 +41,11 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register />,
       },
-      {
-        path: '*',
-        element: <NotFound />,
-      },
     ],
+  },
+  {
+    path: '/404',
+    element: <NotFound />,
   },
   {
     path: '/dashboard',
@@ -74,7 +75,15 @@ const router = createBrowserRouter([
         path: 'analytics',
         element: <Analytics />,
       },
+      {
+        path: 'manage-applications',
+        element: <ManageApplications />,
+      },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 

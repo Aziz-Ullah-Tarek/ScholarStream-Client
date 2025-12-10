@@ -122,7 +122,7 @@ const ManageUsers = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-purple-600"></span>
+        <span className="loading loading-spinner loading-lg text-[#26CCC2]"></span>
       </div>
     );
   }
@@ -130,8 +130,8 @@ const ManageUsers = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] bg-clip-text text-transparent">
           Manage Users
         </h1>
         <p className="text-gray-600 mt-2">Manage user roles and permissions</p>
@@ -139,7 +139,7 @@ const ManageUsers = () => {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
+        <div className="bg-gradient-to-br from-[#26CCC2] to-[#26CCC2] rounded-xl p-6 text-white shadow-lg">
           <p className="text-sm opacity-90">Total Users</p>
           <p className="text-4xl font-bold mt-2">{stats.total}</p>
         </div>
@@ -158,7 +158,7 @@ const ManageUsers = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
         <div className="grid md:grid-cols-2 gap-4">
           <div className="relative">
             <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -167,14 +167,14 @@ const ManageUsers = () => {
               placeholder="Search by name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input input-bordered w-full pl-12 border-2 border-purple-200 focus:border-purple-500 focus:outline-none"
+              className="input input-bordered w-full pl-12 border-2 border-[#6AECE1]/20 focus:border-[#26CCC2] focus:outline-none"
             />
           </div>
 
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="select select-bordered border-2 border-purple-200 focus:border-purple-500 focus:outline-none"
+            className="select select-bordered border-2 border-[#6AECE1]/20 focus:border-[#26CCC2] focus:outline-none"
           >
             <option value="">All Roles</option>
             <option value="student">Students</option>
@@ -185,10 +185,10 @@ const ManageUsers = () => {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-2xl shadow-xl border-2 border-purple-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl border-2 border-[#6AECE1]/20 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">
-            <thead className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+            <thead className="bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] text-white">
               <tr>
                 <th className="text-white">#</th>
                 <th className="text-white">User</th>
@@ -207,7 +207,7 @@ const ManageUsers = () => {
                 </tr>
               ) : (
                 filteredUsers.map((u, index) => (
-                  <tr key={u._id} className="hover:bg-purple-50">
+                  <tr key={u._id} className="hover:bg-[#6AECE1]/10">
                     <td className="font-semibold">{index + 1}</td>
                     <td>
                       <div className="flex items-center gap-3">
@@ -235,14 +235,14 @@ const ManageUsers = () => {
                         value={u.role}
                         onChange={(e) => handleRoleChange(u.email, e.target.value)}
                         disabled={roleUpdateLoading === u.email || u.email === user?.email}
-                        className="select select-sm select-bordered border-purple-300 focus:border-purple-500"
+                        className="select select-sm select-bordered border-[#6AECE1] focus:border-[#26CCC2]"
                       >
                         <option value="student">Student</option>
                         <option value="moderator">Moderator</option>
                         <option value="admin">Admin</option>
                       </select>
                       {roleUpdateLoading === u.email && (
-                        <span className="loading loading-spinner loading-xs ml-2 text-purple-600"></span>
+                        <span className="loading loading-spinner loading-xs ml-2 text-[#26CCC2]"></span>
                       )}
                     </td>
                     <td>
@@ -270,9 +270,9 @@ const ManageUsers = () => {
       </div>
 
       {/* Role Information */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+      <div className="bg-gradient-to-r from-[#6AECE1]/10 to-[#FFF57E]/10 rounded-2xl p-6 border-2 border-[#6AECE1]/20">
         <div className="flex items-center gap-3 mb-4">
-          <FiShield size={24} className="text-purple-600" />
+          <FiShield size={24} className="text-[#26CCC2]" />
           <h3 className="text-xl font-bold text-gray-800">Role Descriptions</h3>
         </div>
         <div className="grid md:grid-cols-3 gap-4">
@@ -301,3 +301,4 @@ const ManageUsers = () => {
 };
 
 export default ManageUsers;
+

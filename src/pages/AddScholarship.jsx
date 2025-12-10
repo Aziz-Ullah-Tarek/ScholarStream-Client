@@ -102,7 +102,7 @@ const AddScholarship = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-purple-600 via-pink-600 to-violet-600 rounded-2xl shadow-lg p-8">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#26CCC2] via-[#6AECE1] to-[#6AECE1] rounded-2xl shadow-lg p-8">
         <div className="relative z-10">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
@@ -127,10 +127,10 @@ const AddScholarship = () => {
           {/* Scholarship Information */}
           <div className="p-8 space-y-6 border-b-2 border-gray-100">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg">
+              <div className="p-2 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-lg">
                 <FiBook className="text-xl text-white" />
               </div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                 Scholarship Information
               </h2>
             </div>
@@ -145,7 +145,7 @@ const AddScholarship = () => {
                   name="scholarshipName"
                   value={formData.scholarshipName}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., Presidential Scholarship"
                   required
                 />
@@ -159,7 +159,7 @@ const AddScholarship = () => {
                   name="subjectCategory"
                   value={formData.subjectCategory}
                   onChange={handleChange}
-                  className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   required
                 >
                   <option value="">Select Subject</option>
@@ -181,7 +181,7 @@ const AddScholarship = () => {
                   name="scholarshipCategory"
                   value={formData.scholarshipCategory}
                   onChange={handleChange}
-                  className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   required
                 >
                   <option value="Full fund">💎 Full fund</option>
@@ -198,7 +198,7 @@ const AddScholarship = () => {
                   name="degree"
                   value={formData.degree}
                   onChange={handleChange}
-                  className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   required
                 >
                   <option value="Diploma">📜 Diploma</option>
@@ -216,7 +216,7 @@ const AddScholarship = () => {
                   name="applicationDeadline"
                   value={formData.applicationDeadline}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   required
                 />
               </div>
@@ -226,10 +226,10 @@ const AddScholarship = () => {
           {/* University Information */}
           <div className="p-8 space-y-6 border-b-2 border-gray-100">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg">
+              <div className="p-2 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-lg">
                 <FiGlobe className="text-xl text-white" />
               </div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                 University Information
               </h2>
             </div>
@@ -244,7 +244,7 @@ const AddScholarship = () => {
                   name="universityName"
                   value={formData.universityName}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., Harvard University"
                   required
                 />
@@ -259,7 +259,7 @@ const AddScholarship = () => {
                   name="universityImage"
                   value={formData.universityImage}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="https://example.com/image.jpg"
                   required
                 />
@@ -276,7 +276,7 @@ const AddScholarship = () => {
                   name="universityCountry"
                   value={formData.universityCountry}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., United States"
                   required
                 />
@@ -291,7 +291,7 @@ const AddScholarship = () => {
                   name="universityCity"
                   value={formData.universityCity}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., Cambridge"
                   required
                 />
@@ -306,7 +306,7 @@ const AddScholarship = () => {
                   name="universityWorldRank"
                   value={formData.universityWorldRank}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., 1"
                   min="1"
                   required
@@ -318,10 +318,10 @@ const AddScholarship = () => {
           {/* Financial Information */}
           <div className="p-8 space-y-6 border-b-2 border-gray-100">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg">
+              <div className="p-2 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-lg">
                 <FiDollarSign className="text-xl text-white" />
               </div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                 Financial Information
               </h2>
             </div>
@@ -330,14 +330,14 @@ const AddScholarship = () => {
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold text-gray-700">Tuition Fees (USD)</span>
-                  <span className="label-text-alt text-purple-600 font-semibold">Optional</span>
+                  <span className="label-text-alt text-[#26CCC2] font-semibold">Optional</span>
                 </label>
                 <input
                   type="number"
                   name="tuitionFees"
                   value={formData.tuitionFees}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., 55000"
                   min="0"
                   step="0.01"
@@ -353,7 +353,7 @@ const AddScholarship = () => {
                   name="applicationFees"
                   value={formData.applicationFees}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., 150"
                   min="0"
                   step="0.01"
@@ -370,7 +370,7 @@ const AddScholarship = () => {
                   name="serviceCharge"
                   value={formData.serviceCharge}
                   onChange={handleChange}
-                  className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                  className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                   placeholder="e.g., 50"
                   min="0"
                   step="0.01"
@@ -383,10 +383,10 @@ const AddScholarship = () => {
           {/* System Information */}
           <div className="p-8 space-y-6 bg-gray-50">
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg">
+              <div className="p-2 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-lg">
                 <FiSettings className="text-xl text-white" />
               </div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                 System Information
               </h2>
             </div>
@@ -427,7 +427,7 @@ const AddScholarship = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn btn-lg flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-none shadow-lg hover:shadow-xl transition-all font-bold rounded-lg"
+                className="btn btn-lg flex-1 bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] hover:from-purple-700 hover:to-pink-700 text-white border-none shadow-lg hover:shadow-xl transition-all font-bold rounded-lg"
               >
                 {loading ? (
                   <>
@@ -459,3 +459,4 @@ const AddScholarship = () => {
 };
 
 export default AddScholarship;
+

@@ -107,7 +107,7 @@ const ManageScholarships = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-purple-600"></span>
+        <span className="loading loading-spinner loading-lg text-[#26CCC2]"></span>
       </div>
     );
   }
@@ -115,7 +115,7 @@ const ManageScholarships = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-600 to-violet-600 rounded-3xl shadow-2xl p-8">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#26CCC2] via-[#FFB76C] to-[#6AECE1] rounded-3xl shadow-2xl p-8">
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -126,11 +126,11 @@ const ManageScholarships = () => {
                 Manage Scholarships
               </h1>
             </div>
-            <p className="text-purple-100 text-lg">Update or delete scholarship opportunities</p>
+            <p className="text-[#6AECE1]/10 text-lg">Update or delete scholarship opportunities</p>
           </div>
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 text-center">
             <p className="text-5xl font-bold text-white drop-shadow-lg">{scholarships.length}</p>
-            <p className="text-sm text-purple-100 mt-1 font-semibold">Total Scholarships</p>
+            <p className="text-sm text-[#6AECE1]/10 mt-1 font-semibold">Total Scholarships</p>
           </div>
         </div>
         {/* Decorative elements */}
@@ -139,7 +139,7 @@ const ManageScholarships = () => {
       </div>
 
       {/* Search Bar and View Toggle */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -148,7 +148,7 @@ const ManageScholarships = () => {
               placeholder="Search by scholarship name, university, or subject..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input input-lg w-full pl-12 bg-white border-2 border-purple-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 rounded-xl transition-all"
+              className="input input-lg w-full pl-12 bg-white border-2 border-[#6AECE1] focus:border-[#26CCC2] focus:ring-2 focus:ring-[#6AECE1]/20 rounded-xl transition-all"
             />
           </div>
           <div className="flex gap-2">
@@ -156,8 +156,8 @@ const ManageScholarships = () => {
               onClick={() => setViewMode('grid')}
               className={`btn btn-lg ${
                 viewMode === 'grid'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none'
-                  : 'btn-outline border-2 border-purple-300'
+                  ? 'bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] text-white border-none'
+                  : 'btn-outline border-2 border-[#6AECE1]'
               } rounded-xl`}
             >
               <FiGrid size={20} />
@@ -166,8 +166,8 @@ const ManageScholarships = () => {
               onClick={() => setViewMode('list')}
               className={`btn btn-lg ${
                 viewMode === 'list'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none'
-                  : 'btn-outline border-2 border-purple-300'
+                  ? 'bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] text-white border-none'
+                  : 'btn-outline border-2 border-[#6AECE1]'
               } rounded-xl`}
             >
               <FiList size={20} />
@@ -178,7 +178,7 @@ const ManageScholarships = () => {
 
       {/* Scholarships Display */}
       {filteredScholarships.length === 0 ? (
-        <div className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-purple-200">
+        <div className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-[#6AECE1]/20">
           <div className="text-6xl mb-4">🔍</div>
           <h3 className="text-2xl font-bold text-gray-800 mb-2">No Scholarships Found</h3>
           <p className="text-gray-600">Try adjusting your search terms</p>
@@ -188,7 +188,7 @@ const ManageScholarships = () => {
           {filteredScholarships.map((scholarship, index) => (
             <div
               key={scholarship._id}
-              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border-2 border-purple-200 hover:border-purple-400 transition-all duration-300"
+              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border-2 border-[#6AECE1]/20 hover:border-[#26CCC2] transition-all duration-300"
             >
               {/* Card Image */}
               <div className="relative h-48 overflow-hidden">
@@ -221,7 +221,7 @@ const ManageScholarships = () => {
               <div className="p-6 space-y-4">
                 {/* University Info */}
                 <div className="flex items-start gap-3">
-                  <FiGlobe className="text-purple-600 mt-1 flex-shrink-0" size={20} />
+                  <FiGlobe className="text-[#26CCC2] mt-1 flex-shrink-0" size={20} />
                   <div>
                     <p className="font-bold text-gray-800">{scholarship.universityName}</p>
                     <p className="text-sm text-gray-600">
@@ -232,21 +232,21 @@ const ManageScholarships = () => {
 
                 {/* Subject and Degree */}
                 <div className="flex flex-wrap gap-2">
-                  <span className="badge badge-lg bg-purple-100 text-purple-700 border-purple-300 font-semibold">
+                  <span className="badge badge-lg bg-[#6AECE1]/10 text-[#26CCC2] border-[#6AECE1] font-semibold">
                     {scholarship.subjectCategory}
                   </span>
-                  <span className="badge badge-lg bg-pink-100 text-pink-700 border-pink-300 font-semibold">
+                  <span className="badge badge-lg bg-[#FFF57E]/10 text-[#FFB76C] border-[#FFF57E] font-semibold">
                     {scholarship.degree}
                   </span>
                 </div>
 
                 {/* Financial Info */}
-                <div className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-3">
+                <div className="flex items-center justify-between bg-gradient-to-r from-[#6AECE1]/10 to-[#FFF57E]/10 rounded-xl p-3">
                   <div className="flex items-center gap-2">
-                    <FiDollarSign className="text-purple-600" size={18} />
+                    <FiDollarSign className="text-[#26CCC2]" size={18} />
                     <span className="text-sm font-semibold text-gray-700">Application Fee</span>
                   </div>
-                  <span className="text-lg font-bold text-purple-600">
+                  <span className="text-lg font-bold text-[#26CCC2]">
                     ${scholarship.applicationFees}
                   </span>
                 </div>
@@ -271,7 +271,7 @@ const ManageScholarships = () => {
                   <button
                     onClick={() => handleDelete(scholarship._id)}
                     disabled={deleteLoading === scholarship._id}
-                    className="btn btn-sm bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white border-none rounded-xl"
+                    className="btn btn-sm bg-gradient-to-r from-red-500 to-[#FFB76C] hover:from-red-600 hover:to-[#FFB76C] text-white border-none rounded-xl"
                   >
                     {deleteLoading === scholarship._id ? (
                       <span className="loading loading-spinner loading-xs"></span>
@@ -290,7 +290,7 @@ const ManageScholarships = () => {
           {filteredScholarships.map((scholarship, index) => (
             <div
               key={scholarship._id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl border-2 border-purple-200 hover:border-purple-400 transition-all duration-300 overflow-hidden"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl border-2 border-[#6AECE1]/20 hover:border-[#26CCC2] transition-all duration-300 overflow-hidden"
             >
               <div className="flex flex-col md:flex-row">
                 {/* Image */}
@@ -313,7 +313,7 @@ const ManageScholarships = () => {
 
                       {/* University */}
                       <div className="flex items-center gap-2">
-                        <FiGlobe className="text-purple-600" size={18} />
+                        <FiGlobe className="text-[#26CCC2]" size={18} />
                         <span className="font-semibold text-gray-700">
                           {scholarship.universityName}
                         </span>
@@ -334,10 +334,10 @@ const ManageScholarships = () => {
                         }`}>
                           {scholarship.scholarshipCategory}
                         </span>
-                        <span className="badge badge-lg bg-purple-100 text-purple-700 border-purple-300 font-semibold">
+                        <span className="badge badge-lg bg-[#6AECE1]/10 text-[#26CCC2] border-[#6AECE1] font-semibold">
                           {scholarship.subjectCategory}
                         </span>
-                        <span className="badge badge-lg bg-pink-100 text-pink-700 border-pink-300 font-semibold">
+                        <span className="badge badge-lg bg-[#FFF57E]/10 text-[#FFB76C] border-[#FFF57E] font-semibold">
                           {scholarship.degree}
                         </span>
                       </div>
@@ -345,9 +345,9 @@ const ManageScholarships = () => {
                       {/* Financial & Deadline */}
                       <div className="flex flex-wrap gap-4 text-sm">
                         <div className="flex items-center gap-2">
-                          <FiDollarSign className="text-purple-600" size={16} />
+                          <FiDollarSign className="text-[#26CCC2]" size={16} />
                           <span className="text-gray-600">
-                            Fee: <span className="font-bold text-purple-600">${scholarship.applicationFees}</span>
+                            Fee: <span className="font-bold text-[#26CCC2]">${scholarship.applicationFees}</span>
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -371,7 +371,7 @@ const ManageScholarships = () => {
                       <button
                         onClick={() => handleDelete(scholarship._id)}
                         disabled={deleteLoading === scholarship._id}
-                        className="btn btn-sm md:btn-md bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white border-none rounded-xl"
+                        className="btn btn-sm md:btn-md bg-gradient-to-r from-red-500 to-[#FFB76C] hover:from-red-600 hover:to-[#FFB76C] text-white border-none rounded-xl"
                       >
                         {deleteLoading === scholarship._id ? (
                           <span className="loading loading-spinner loading-sm"></span>
@@ -396,7 +396,7 @@ const ManageScholarships = () => {
         <div className="modal modal-open">
           <div className="modal-box max-w-5xl max-h-[90vh] bg-white p-0 overflow-hidden">
             {/* Modal Header - Gradient Background */}
-            <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 z-10">
+            <div className="sticky top-0 bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] px-8 py-6 z-10">
               <div className="flex justify-between items-center">
                 <h3 className="font-bold text-2xl text-white flex items-center gap-3">
                   <FiEdit2 size={24} />
@@ -416,8 +416,8 @@ const ManageScholarships = () => {
               <div className="space-y-6">
                 {/* Scholarship Information Section */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-purple-100">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-[#6AECE1]/10">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#26CCC2] to-[#FFB76C] flex items-center justify-center">
                       <FiBook className="text-white" size={20} />
                     </div>
                     <h4 className="font-bold text-lg text-gray-800">Scholarship Details</h4>
@@ -434,7 +434,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, scholarshipName: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="Enter scholarship name"
                       />
                     </div>
@@ -448,7 +448,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, subjectCategory: e.target.value })
                         }
-                        className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                       >
                         {subjectCategories.map((subject) => (
                           <option key={subject} value={subject}>
@@ -469,7 +469,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, scholarshipCategory: e.target.value })
                         }
-                        className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                       >
                         <option value="Full fund">💎 Full fund</option>
                         <option value="Partial">⭐ Partial</option>
@@ -486,7 +486,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, degree: e.target.value })
                         }
-                        className="select select-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="select select-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                       >
                         <option value="Diploma">📜 Diploma</option>
                         <option value="Bachelor">📖 Bachelor</option>
@@ -504,7 +504,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, applicationDeadline: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                       />
                     </div>
                   </div>
@@ -512,8 +512,8 @@ const ManageScholarships = () => {
 
                 {/* University Information Section */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-purple-100">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-[#6AECE1]/10">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#26CCC2] to-[#FFB76C] flex items-center justify-center">
                       <FiMapPin className="text-white" size={20} />
                     </div>
                     <h4 className="font-bold text-lg text-gray-800">University Information</h4>
@@ -530,7 +530,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, universityName: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="Enter university name"
                       />
                     </div>
@@ -545,7 +545,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, universityWorldRank: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="e.g., 100"
                       />
                     </div>
@@ -562,7 +562,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, universityCountry: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="Enter country"
                       />
                     </div>
@@ -577,7 +577,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, universityCity: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="Enter city"
                       />
                     </div>
@@ -593,7 +593,7 @@ const ManageScholarships = () => {
                       onChange={(e) =>
                         setUpdateFormData({ ...updateFormData, universityImage: e.target.value })
                       }
-                      className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                      className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                       placeholder="https://example.com/image.jpg"
                     />
                   </div>
@@ -601,8 +601,8 @@ const ManageScholarships = () => {
 
                 {/* Financial Information Section */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-purple-100">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-[#6AECE1]/10">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#26CCC2] to-[#FFB76C] flex items-center justify-center">
                       <FiDollarSign className="text-white" size={20} />
                     </div>
                     <h4 className="font-bold text-lg text-gray-800">Financial Details</h4>
@@ -619,7 +619,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, tuitionFees: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="0"
                       />
                     </div>
@@ -634,7 +634,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, applicationFees: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="0"
                       />
                     </div>
@@ -649,7 +649,7 @@ const ManageScholarships = () => {
                         onChange={(e) =>
                           setUpdateFormData({ ...updateFormData, serviceCharge: e.target.value })
                         }
-                        className="input input-bordered w-full border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 rounded-lg"
+                        className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
                         placeholder="0"
                       />
                     </div>
@@ -668,7 +668,7 @@ const ManageScholarships = () => {
               </button>
               <button
                 onClick={() => handleUpdate(editingScholarship)}
-                className="btn bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none hover:from-purple-700 hover:to-pink-700 rounded-lg"
+                className="btn bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] text-white border-none hover:from-[#26CCC2] hover:to-[#FFB76C] rounded-lg"
               >
                 <FiSave size={18} />
                 Save Changes
@@ -682,3 +682,4 @@ const ManageScholarships = () => {
 };
 
 export default ManageScholarships;
+

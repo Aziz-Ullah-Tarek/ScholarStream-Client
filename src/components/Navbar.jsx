@@ -18,16 +18,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-purple-100">
+    <nav className="bg-white shadow-md sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-[#6AECE1]/20">
       <div className="max-w-7xl mx-auto navbar px-4 py-3">
         {/* Logo */}
         <div className="flex-1">
           <Link to="/" className="flex items-center gap-3 hover:scale-105 transition-transform">
-            <div className="bg-gradient-to-br from-violet-500 to-pink-600 p-2.5 rounded-2xl shadow-lg">
+            <div className="bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] p-2.5 rounded-2xl shadow-lg">
               <span className="text-3xl">🎓</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl leading-none font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">ScholarStream</span>
+              <span className="text-2xl leading-none font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">ScholarStream</span>
               <span className="text-xs text-gray-500 font-medium">Your Path to Success</span>
             </div>
           </Link>
@@ -40,7 +40,7 @@ const Navbar = () => {
               <NavLink 
                 to="/" 
                 className={({ isActive }) => 
-                  `font-semibold transition-all px-4 ${isActive ? 'active text-purple-600' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'}`
+                  `font-semibold transition-all px-4 ${isActive ? 'active text-[#26CCC2]' : 'text-gray-700 hover:text-[#26CCC2] hover:bg-[#6AECE1]/10'}`
                 }
               >
                 Home
@@ -50,7 +50,7 @@ const Navbar = () => {
               <NavLink 
                 to="/scholarships" 
                 className={({ isActive }) => 
-                  `font-semibold transition-all px-4 ${isActive ? 'active text-purple-600' : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'}`
+                  `font-semibold transition-all px-4 ${isActive ? 'active text-[#26CCC2]' : 'text-gray-700 hover:text-[#26CCC2] hover:bg-[#6AECE1]/10'}`
                 }
               >
                 All Scholarships
@@ -102,10 +102,10 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-ghost btn-sm lg:btn-md font-semibold text-gray-700 hover:text-purple-600 hover:bg-purple-50">
+              <Link to="/login" className="btn btn-ghost btn-sm lg:btn-md font-semibold text-gray-700 hover:text-[#26CCC2] hover:bg-[#6AECE1]/10">
                 Sign In
               </Link>
-              <Link to="/register" className="btn btn-sm lg:btn-md font-semibold bg-gradient-to-r from-violet-600 to-pink-600 text-white border-0 hover:from-violet-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all">
+              <Link to="/register" className="btn btn-sm lg:btn-md font-semibold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white border-0 hover:from-[#26CCC2] hover:to-[#6AECE1] shadow-lg hover:shadow-xl transition-all">
                 Get Started
                 <RiArrowRightUpBoxFill />
               </Link>
@@ -156,3 +156,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

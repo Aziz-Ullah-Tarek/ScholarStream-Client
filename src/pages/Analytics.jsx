@@ -122,7 +122,7 @@ const Analytics = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <div className="loading loading-spinner loading-lg text-purple-600"></div>
+        <div className="loading loading-spinner loading-lg text-[#26CCC2]"></div>
       </div>
     );
   }
@@ -130,11 +130,11 @@ const Analytics = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+      <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
         <div className="flex items-center gap-3">
-          <FiBarChart2 className="text-4xl text-purple-600" />
+          <FiBarChart2 className="text-4xl text-[#26CCC2]" />
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] bg-clip-text text-transparent">
               Analytics Dashboard
             </h1>
             <p className="text-gray-600 mt-1">Platform statistics and insights</p>
@@ -145,12 +145,12 @@ const Analytics = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Total Users Card */}
-        <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl shadow-xl p-6 text-white">
+        <div className="bg-gradient-to-br from-[#26CCC2] to-[#26CCC2] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm font-medium">Total Users</p>
+              <p className="text-[#6AECE1]/10 text-sm font-medium">Total Users</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalUsers}</h3>
-              <p className="text-purple-200 text-xs mt-2">Registered on platform</p>
+              <p className="text-[#6AECE1]/20 text-xs mt-2">Registered on platform</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiUsers size={32} />
@@ -159,12 +159,12 @@ const Analytics = () => {
         </div>
 
         {/* Total Scholarships Card */}
-        <div className="bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl shadow-xl p-6 text-white">
+        <div className="bg-gradient-to-br from-[#FFB76C] to-[#FFB76C] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-pink-100 text-sm font-medium">Total Scholarships</p>
+              <p className="text-[#FFF57E]/10 text-sm font-medium">Total Scholarships</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalScholarships}</h3>
-              <p className="text-pink-200 text-xs mt-2">Available opportunities</p>
+              <p className="text-[#FFF57E]/20 text-xs mt-2">Available opportunities</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiAward size={32} />
@@ -173,12 +173,12 @@ const Analytics = () => {
         </div>
 
         {/* Total Applications Card */}
-        <div className="bg-gradient-to-br from-violet-500 to-violet-700 rounded-2xl shadow-xl p-6 text-white">
+        <div className="bg-gradient-to-br from-[#6AECE1] to-[#26CCC2] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-violet-100 text-sm font-medium">Total Applications</p>
+              <p className="text-[#6AECE1]/10 text-sm font-medium">Total Applications</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalApplications}</h3>
-              <p className="text-violet-200 text-xs mt-2">Submitted by students</p>
+              <p className="text-[#6AECE1]/20 text-xs mt-2">Submitted by students</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiTrendingUp size={32} />
@@ -204,9 +204,9 @@ const Analytics = () => {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* User Roles Pie Chart */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
           <div className="flex items-center gap-2 mb-4">
-            <FiPieChart className="text-2xl text-purple-600" />
+            <FiPieChart className="text-2xl text-[#26CCC2]" />
             <h3 className="text-xl font-bold text-gray-800">Users by Role</h3>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -232,9 +232,9 @@ const Analytics = () => {
         </div>
 
         {/* Scholarship Categories Pie Chart */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
           <div className="flex items-center gap-2 mb-4">
-            <FiPieChart className="text-2xl text-pink-600" />
+            <FiPieChart className="text-2xl text-[#FFB76C]" />
             <h3 className="text-xl font-bold text-gray-800">Scholarship Categories</h3>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -263,9 +263,9 @@ const Analytics = () => {
       {/* Bar Charts Section */}
       <div className="grid grid-cols-1 gap-6">
         {/* Top Universities Bar Chart */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
           <div className="flex items-center gap-2 mb-4">
-            <FiBarChart2 className="text-2xl text-purple-600" />
+            <FiBarChart2 className="text-2xl text-[#26CCC2]" />
             <h3 className="text-xl font-bold text-gray-800">Top Universities by Scholarships</h3>
           </div>
           <ResponsiveContainer width="100%" height={400}>
@@ -281,9 +281,9 @@ const Analytics = () => {
         </div>
 
         {/* Degree Types Bar Chart */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-200">
+        <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-[#6AECE1]/20">
           <div className="flex items-center gap-2 mb-4">
-            <FiBarChart2 className="text-2xl text-pink-600" />
+            <FiBarChart2 className="text-2xl text-[#FFB76C]" />
             <h3 className="text-xl font-bold text-gray-800">Scholarships by Degree Type</h3>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -301,9 +301,9 @@ const Analytics = () => {
 
       {/* Additional Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+        <div className="bg-gradient-to-br from-[#6AECE1]/10 to-[#FFF57E]/10 rounded-2xl p-6 border-2 border-[#6AECE1]/20">
           <h4 className="font-bold text-gray-800 mb-2">Students</h4>
-          <p className="text-3xl font-bold text-purple-600">{stats.usersByRole.student || 0}</p>
+          <p className="text-3xl font-bold text-[#26CCC2]">{stats.usersByRole.student || 0}</p>
           <p className="text-sm text-gray-600 mt-1">Registered students</p>
         </div>
 
@@ -313,7 +313,7 @@ const Analytics = () => {
           <p className="text-sm text-gray-600 mt-1">Active moderators</p>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-6 border-2 border-red-200">
+        <div className="bg-gradient-to-br from-red-50 to-[#FFF57E]/10 rounded-2xl p-6 border-2 border-red-200">
           <h4 className="font-bold text-gray-800 mb-2">Admins</h4>
           <p className="text-3xl font-bold text-red-600">{stats.usersByRole.admin || 0}</p>
           <p className="text-sm text-gray-600 mt-1">System administrators</p>
@@ -324,3 +324,4 @@ const Analytics = () => {
 };
 
 export default Analytics;
+
