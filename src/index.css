@@ -6,25 +6,25 @@
 @plugin "daisyui";
 
 @theme {
-  /* Custom color palette */
-  --color-primary: #3B82F6;
+  /* Modern Gradient Color Palette */
+  --color-primary: #8B5CF6;
   --color-primary-content: #FFFFFF;
-  --color-secondary: #60A5FA;
+  --color-secondary: #EC4899;
   --color-secondary-content: #FFFFFF;
-  --color-accent: #10B981;
+  --color-accent: #F59E0B;
   --color-accent-content: #FFFFFF;
-  --color-neutral: #1E293B;
+  --color-neutral: #1F2937;
   --color-neutral-content: #FFFFFF;
   --color-base-100: #FFFFFF;
-  --color-base-200: #F8FAFC;
-  --color-base-300: #E2E8F0;
-  --color-base-content: #1E293B;
-  --color-info: #3ABFF8;
+  --color-base-200: #F9FAFB;
+  --color-base-300: #F3F4F6;
+  --color-base-content: #111827;
+  --color-info: #3B82F6;
   --color-info-content: #FFFFFF;
   --color-success: #10B981;
   --color-success-content: #FFFFFF;
-  --color-warning: #FBBD23;
-  --color-warning-content: #000000;
+  --color-warning: #F59E0B;
+  --color-warning-content: #FFFFFF;
   --color-error: #EF4444;
   --color-error-content: #FFFFFF;
 }
@@ -53,11 +53,28 @@
   }
 
   .active {
-    color: #3B82F6;
+    color: #8B5CF6;
     font-weight: 600;
-    background: rgba(59, 130, 246, 0.1);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+  }
+
+  .card-gradient {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(236, 72, 153, 0.05));
   }
 }
 
@@ -68,16 +85,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #f9fafb;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #3B82F6;
+    background: linear-gradient(135deg, #8B5CF6, #EC4899);
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #2563EB;
+    background: linear-gradient(135deg, #7C3AED, #DB2777);
   }
 
   /* Smooth animations */

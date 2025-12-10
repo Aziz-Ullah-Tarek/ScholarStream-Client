@@ -108,7 +108,7 @@ const AllScholarships = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16"
+        className="bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white py-16"
       >
         <div className="max-w-7xl mx-auto px-4">
           <motion.h1
@@ -123,7 +123,7 @@ const AllScholarships = () => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-xl text-center text-blue-100"
+            className="text-xl text-center text-purple-100"
           >
             Find your perfect scholarship opportunity from {scholarships.length} available programs
           </motion.p>
@@ -147,13 +147,13 @@ const AllScholarships = () => {
                 placeholder="Search by scholarship name, university, or degree..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="input input-bordered w-full pl-12 pr-4 h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="input input-bordered w-full pl-12 pr-4 h-12 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 border-2 border-gray-200 hover:border-purple-300 transition-all duration-300"
               />
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`btn h-12 px-6 rounded-xl font-semibold ${
-                showFilters ? 'btn-primary' : 'btn-outline btn-primary'
+              className={`btn h-12 px-6 rounded-xl font-semibold transition-all duration-300 ${
+                showFilters ? 'bg-gradient-to-r from-violet-600 to-pink-600 text-white border-0 shadow-lg' : 'btn-outline border-2 border-purple-500 text-purple-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-pink-600 hover:text-white hover:border-0'
               }`}
             >
               <FaFilter className="mr-2" />
@@ -257,7 +257,7 @@ const AllScholarships = () => {
 
           {/* Results Count */}
           <div className="mt-4 text-center text-gray-600">
-            Showing <span className="font-bold text-blue-600">{filteredScholarships.length}</span> of{' '}
+            Showing <span className="font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">{filteredScholarships.length}</span> of{' '}
             <span className="font-bold">{scholarships.length}</span> scholarships
           </div>
         </motion.div>
@@ -276,7 +276,7 @@ const AllScholarships = () => {
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-2xl font-bold text-gray-700 mb-2">No Scholarships Found</h3>
             <p className="text-gray-500 mb-6">Try adjusting your search or filter criteria</p>
-            <button onClick={clearAllFilters} className="btn btn-primary">
+            <button onClick={clearAllFilters} className="btn bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-700 hover:to-pink-700 text-white border-0 shadow-lg">
               Clear Filters
             </button>
           </motion.div>
@@ -289,7 +289,7 @@ const AllScholarships = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.4 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="card bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 rounded-2xl overflow-hidden"
+                className="card bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-purple-100 hover:border-purple-300 rounded-2xl overflow-hidden"
               >
                 {/* Image */}
                 <figure className="h-52 overflow-hidden relative">
@@ -298,8 +298,9 @@ const AllScholarships = () => {
                     alt={scholarship.universityName}
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent"></div>
                   <div className="absolute top-4 right-4">
-                    <div className="badge badge-primary badge-lg shadow-lg font-semibold">
+                    <div className="badge bg-gradient-to-r from-violet-500 to-pink-500 text-white border-0 badge-lg shadow-lg font-semibold">
                       {scholarship.scholarshipCategory}
                     </div>
                   </div>
@@ -309,7 +310,7 @@ const AllScholarships = () => {
                 <div className="card-body p-6">
                   {/* University Name */}
                   <div className="flex items-center gap-2 mb-2">
-                    <FaGraduationCap className="text-blue-500 text-lg" />
+                    <FaGraduationCap className="text-purple-500 text-lg" />
                     <h3 className="font-bold text-gray-800 text-sm">
                       {scholarship.universityName}
                     </h3>
@@ -322,7 +323,7 @@ const AllScholarships = () => {
 
                   {/* Location */}
                   <div className="flex items-center gap-2 text-gray-600 mb-2">
-                    <FaMapMarkerAlt className="text-red-500" />
+                    <FaMapMarkerAlt className="text-pink-500" />
                     <span className="text-sm">
                       {scholarship.universityCity}, {scholarship.universityCountry}
                     </span>
@@ -366,7 +367,7 @@ const AllScholarships = () => {
                   {/* View Details Button */}
                   <Link
                     to={`/scholarship/${scholarship._id}`}
-                    className="btn btn-primary w-full rounded-xl font-semibold"
+                    className="btn bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-700 hover:to-pink-700 text-white border-0 w-full rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     View Details
                   </Link>

@@ -72,13 +72,13 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 py-6 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-100 py-6 px-4">
       <div className="max-w-lg w-full mx-auto">
         <div className="text-center mb-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg mb-2">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-violet-500 to-pink-600 rounded-2xl shadow-lg mb-2">
             <span className="text-4xl">🎓</span>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">Create Account</h2>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">Create Account</h2>
           <p className="text-gray-600">Join ScholarStream and unlock opportunities</p>
         </div>
 
@@ -89,7 +89,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaUser className="text-blue-500" /> Full Name
+                    <FaUser className="text-purple-500" /> Full Name
                   </span>
                 </label>
                 <input
@@ -98,7 +98,7 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-blue-500 focus:bg-white transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.name}</span>}
               </div>
@@ -107,7 +107,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaEnvelope className="text-blue-500" /> Email Address
+                    <FaEnvelope className="text-purple-500" /> Email Address
                   </span>
                 </label>
                 <input
@@ -116,7 +116,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email address"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-blue-500 focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.email && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.email}</span>}
               </div>
@@ -125,7 +125,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaImage className="text-blue-500" /> Profile Photo URL
+                    <FaImage className="text-purple-500" /> Profile Photo URL
                   </span>
                 </label>
                 <input
@@ -134,7 +134,7 @@ const Register = () => {
                   value={formData.photoURL}
                   onChange={handleChange}
                   placeholder="Enter your profile photo URL"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-blue-500 focus:bg-white transition-all ${errors.photoURL ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.photoURL ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.photoURL && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.photoURL}</span>}
               </div>
@@ -143,7 +143,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaLock className="text-blue-500" /> Password
+                    <FaLock className="text-purple-500" /> Password
                   </span>
                 </label>
                 <div className="relative">
@@ -153,12 +153,12 @@ const Register = () => {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Create a strong password"
-                    className={`input input-bordered w-full pr-12 bg-gray-50 border-2 focus:border-blue-500 focus:bg-white transition-all ${errors.password ? 'border-red-400' : 'border-gray-200'}`}
+                    className={`input input-bordered w-full pr-12 bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.password ? 'border-red-400' : 'border-gray-200'}`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-500 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors"
                   >
                     {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                   </button>
@@ -168,7 +168,7 @@ const Register = () => {
               </div>
 
               {/* Submit Button */}
-              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
+              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-violet-600 to-pink-600 text-white border-0 hover:from-violet-700 hover:to-pink-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
                 Create Account
               </button>
             </form>
@@ -177,7 +177,7 @@ const Register = () => {
             <div className="text-center mt-6 pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link to="/login" className="text-blue-600 font-semibold hover:text-indigo-600 hover:underline transition-colors">
+                <Link to="/login" className="text-purple-600 font-semibold hover:text-pink-600 hover:underline transition-colors">
                   Sign In
                 </Link>
               </p>

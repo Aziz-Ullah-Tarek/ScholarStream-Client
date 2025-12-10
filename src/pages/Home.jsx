@@ -46,7 +46,7 @@ const Home = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="bg-gradient-to-r from-blue-500 via-indigo-600 to-blue-700 text-white py-20"
+        className="bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white py-20"
       >
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -67,7 +67,7 @@ const Home = () => {
             >
               <Link
                 to="/scholarships"
-                className="btn bg-white text-blue-600 hover:bg-yellow-300 hover:text-blue-700 border-0 px-8 py-3 text-lg font-semibold rounded-full shadow-xl inline-flex items-center gap-2"
+                className="btn bg-white text-purple-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-pink-600 hover:text-white border-0 px-8 py-3 text-lg font-semibold rounded-full shadow-2xl inline-flex items-center gap-2 transition-all duration-300"
               >
                 <FaSearch /> Search Scholarships
               </Link>
@@ -104,26 +104,27 @@ const Home = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                  className="card bg-white shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200"
+                  className="card bg-white shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-purple-100 hover:border-purple-300"
                 >
-                  <figure className="h-48 overflow-hidden">
+                  <figure className="h-48 overflow-hidden relative">
                     <img
                       src={scholarship.universityImage}
                       alt={scholarship.universityName}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent"></div>
                   </figure>
                   <div className="card-body p-5">
-                    <div className="badge badge-primary badge-sm">{scholarship.scholarshipCategory}</div>
+                    <div className="badge bg-gradient-to-r from-violet-500 to-pink-500 text-white border-0 badge-sm font-semibold">{scholarship.scholarshipCategory}</div>
                     <h3 className="card-title text-lg font-bold text-gray-800">
                       {scholarship.scholarshipName}
                     </h3>
                     <p className="text-gray-600 text-sm font-semibold flex items-center gap-2">
-                      <FaGraduationCap className="text-blue-500" />
+                      <FaGraduationCap className="text-purple-500" />
                       {scholarship.universityName}
                     </p>
                     <p className="text-gray-500 text-sm flex items-center gap-2">
-                      <FaMapMarkerAlt className="text-red-500" />
+                      <FaMapMarkerAlt className="text-pink-500" />
                       {scholarship.universityCity}, {scholarship.universityCountry}
                     </p>
                     <div className="divider my-2"></div>
@@ -141,7 +142,7 @@ const Home = () => {
                     <div className="card-actions mt-4">
                       <Link
                         to={`/scholarship/${scholarship._id}`}
-                        className="btn btn-primary btn-sm w-full"
+                        className="btn bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-700 hover:to-pink-700 text-white border-0 btn-sm w-full shadow-lg hover:shadow-xl transition-all duration-300"
                       >
                         View Details
                       </Link>
@@ -155,7 +156,7 @@ const Home = () => {
       </section>
 
       {/* Success Stories Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <section className="py-16 bg-gradient-to-br from-purple-50 via-pink-50 to-violet-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -189,13 +190,13 @@ const Home = () => {
               >
                 <div className="card-body items-center text-center">
                   <div className="avatar mb-4">
-                    <div className="w-24 rounded-full ring ring-blue-500 ring-offset-2">
+                    <div className="w-24 rounded-full ring-4 ring-purple-500 ring-offset-2">
                       <img src={story.studentImage} alt={story.studentName} />
                     </div>
                   </div>
                   <h3 className="card-title text-xl">{story.studentName}</h3>
                   <p className="text-sm text-gray-500">{story.studentCountry}</p>
-                  <div className="badge badge-primary badge-sm mt-2">{story.scholarshipName}</div>
+                  <div className="badge bg-gradient-to-r from-violet-500 to-pink-500 text-white border-0 badge-sm mt-2 font-semibold">{story.scholarshipName}</div>
                   <p className="text-gray-600 mt-4 italic">"{story.story}"</p>
                   <div className="rating rating-sm mt-4">
                     {[...Array(5)].map((_, i) => (
@@ -253,7 +254,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="collapse collapse-plus bg-blue-50 shadow"
+                className="collapse collapse-plus bg-gradient-to-r from-purple-50 to-pink-50 shadow-md hover:shadow-lg transition-all duration-300"
               >
                 <input type="radio" name="faq-accordion" />
                 <div className="collapse-title text-lg font-semibold text-gray-800">
