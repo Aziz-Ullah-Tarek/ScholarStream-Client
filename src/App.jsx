@@ -12,6 +12,7 @@ import ManageScholarships from './pages/ManageScholarships';
 import ManageUsers from './pages/ManageUsers';
 import Analytics from './pages/Analytics';
 import ErrorPage from './pages/ErrorPage';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },
