@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   updateProfile
 } from 'firebase/auth';
+import axios from 'axios';
 import { auth } from '../firebase/firebase.config';
 
 const AuthContext = createContext();
@@ -22,7 +23,36 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState('student');
   const [loading, setLoading] = useState(true);
+
+  // Save user to MongoDB
+  const saveUserToDatabase = async (user) => {
+    try {
+      await axios.post('http://localhost:5000/api/users', {
+        email: user.email,
+        name: user.displayName || 'Anonymous',
+        photoURL: user.photoURL || '',
+        role: 'student', // Default role
+        createdAt: new Date()
+      });
+    } catch (error) {
+      console.error('Error saving user to database:', error);
+    }
+  };
+
+  // Get user role from MongoDB
+  const getUserRole = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/users/check-role/${email}`);
+      setUserRole(response.data.role || 'student');
+      return response.data.role;
+    } catch (error) {
+      console.error('Error getting user role:', error);
+      setUserRole('student');
+      return 'student';
+    }
+  };
 
   // Register with Email & Password
   const registerUser = async (email, password, name, photoURL) => {
@@ -56,8 +86,16 @@ export const AuthProvider = ({ children }) => {
 
   // Observer
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        // Save user to database if not exists
+        await saveUserToDatabase(currentUser);
+        // Get user role
+        await getUserRole(currentUser.email);
+      } else {
+        setUserRole('student');
+      }
       setLoading(false);
     });
     return () => unsubscribe();
@@ -65,11 +103,13 @@ export const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    userRole,
     loading,
     registerUser,
     loginUser,
     googleLogin,
-    logoutUser
+    logoutUser,
+    getUserRole
   };
 
   return (

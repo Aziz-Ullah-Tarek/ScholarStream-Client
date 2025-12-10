@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { RiArrowRightUpBoxFill } from "react-icons/ri";
 
 const Navbar = () => {
-  const { user, logoutUser } = useAuth();
+  const { user, userRole, logoutUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -71,6 +71,15 @@ const Navbar = () => {
               <ul tabIndex={0} className="mt-3 z-[1] p-3 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-56 border border-base-300">
                 <li className="menu-title">
                   <span className="text-primary font-bold">{user?.displayName || 'My Account'}</span>
+                  {userRole && (
+                    <span className={`badge badge-sm mt-1 ${
+                      userRole === 'admin' ? 'badge-error' : 
+                      userRole === 'moderator' ? 'badge-warning' : 
+                      'badge-info'
+                    }`}>
+                      {userRole.toUpperCase()}
+                    </span>
+                  )}
                 </li>
                 <li>
                   <Link to="/dashboard" className="hover:bg-primary/10">
