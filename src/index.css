@@ -1,12 +1,25 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&display=swap");
-
+@import 'react-toastify/dist/ReactToastify.css';
 
 @import "tailwindcss";
 
-
 @plugin "daisyui" {
-  themes: light --default, dark, cupcake;
+  themes: [
+    {
+      mytheme: {
+        "primary": "#3B82F6",
+        "secondary": "#60A5FA",
+        "accent": "#10B981",
+        "neutral": "#1E293B",
+        "base-100": "#FFFFFF",
+        "info": "#3ABFF8",
+        "success": "#10B981",
+        "warning": "#FBBD23",
+        "error": "#EF4444",
+      },
+    },
+  ];
 }
 
 /*custom styles */
@@ -18,6 +31,8 @@
 }
 
 .active {
-  color: #193cb8;
-  border: 2px solid;
+  color: #3B82F6;
+  font-weight: 600;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
 }

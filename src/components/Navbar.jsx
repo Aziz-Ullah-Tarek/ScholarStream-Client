@@ -1,34 +1,45 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
-  const user = null; // Replace with actual user authentication logic
+  const { user, logoutUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success('Logged out successfully! 👋');
+    } catch (error) {
+      toast.error('Logout failed. Please try again.');
+    }
+  };
+
   return (
-    <nav className="bg-base-100 shadow-lg sticky top-0 z-50 backdrop-blur-md bg-base-100/95">
+    <nav className="bg-white shadow-md sticky top-0 z-50 backdrop-blur-md bg-white/95 border-b border-blue-100">
       <div className="max-w-7xl mx-auto navbar px-4 py-3">
         {/* Logo */}
         <div className="flex-1">
-          <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary hover:scale-105 transition-transform">
-            <div className="bg-gradient-to-br from-primary to-secondary p-2 rounded-xl shadow-lg">
+          <Link to="/" className="flex items-center gap-3 hover:scale-105 transition-transform">
+            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2.5 rounded-2xl shadow-lg">
               <span className="text-3xl">🎓</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl leading-none">ScholarStream</span>
-              <span className="text-xs text-base-content/60 font-normal">Your Path to Success</span>
+              <span className="text-2xl leading-none font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">ScholarStream</span>
+              <span className="text-xs text-gray-500 font-medium">Your Path to Success</span>
             </div>
           </Link>
         </div>
 
         {/* Desktop Menu */}
         <div className="flex-none hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-1">
+          <ul className="menu menu-horizontal px-1 gap-2">
             <li>
               <NavLink 
                 to="/" 
                 className={({ isActive }) => 
-                  `font-medium transition-all ${isActive ? 'active' : 'hover:text-primary'}`
+                  `font-semibold transition-all px-4 ${isActive ? 'active text-blue-600' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`
                 }
               >
                 Home
@@ -38,7 +49,7 @@ const Navbar = () => {
               <NavLink 
                 to="/scholarships" 
                 className={({ isActive }) => 
-                  `font-medium transition-all ${isActive ? 'active' : 'hover:text-primary'}`
+                  `font-semibold transition-all px-4 ${isActive ? 'active text-blue-600' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`
                 }
               >
                 All Scholarships
@@ -53,12 +64,12 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar hover:ring-2 hover:ring-primary transition-all">
                 <div className="w-10 rounded-full ring-2 ring-primary/20">
-                  <img src={user?.photo || 'https://via.placeholder.com/40'} alt="User" />
+                  <img src={user?.photoURL || 'https://via.placeholder.com/40'} alt={user?.displayName || 'User'} />
                 </div>
               </label>
               <ul tabIndex={0} className="mt-3 z-[1] p-3 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-56 border border-base-300">
                 <li className="menu-title">
-                  <span className="text-primary font-bold">My Account</span>
+                  <span className="text-primary font-bold">{user?.displayName || 'My Account'}</span>
                 </li>
                 <li>
                   <Link to="/dashboard" className="hover:bg-primary/10">
@@ -70,22 +81,22 @@ const Navbar = () => {
                 </li>
                 <div className="divider my-1"></div>
                 <li>
-                  <a className="hover:bg-error/10 text-error">
+                  <button onClick={handleLogout} className="hover:bg-error/10 text-error">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-ghost btn-sm lg:btn-md font-medium hover:text-primary">
-                Login
+              <Link to="/login" className="btn btn-ghost btn-sm lg:btn-md font-semibold text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+                Sign In
               </Link>
-              <Link to="/register" className="btn btn-primary btn-sm lg:btn-md font-medium shadow-lg hover:shadow-xl transition-all">
-                Register
+              <Link to="/register" className="btn btn-sm lg:btn-md font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0 hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all">
+                Get Started
               </Link>
             </>
           )}
