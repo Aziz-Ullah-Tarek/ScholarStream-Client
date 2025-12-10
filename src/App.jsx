@@ -43,7 +43,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div data-theme="mytheme" className="min-h-screen">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

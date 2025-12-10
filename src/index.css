@@ -1,38 +1,96 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import 'react-toastify/dist/ReactToastify.css';
-
 @import "tailwindcss";
 
-@plugin "daisyui" {
-  themes: [
-    {
-      mytheme: {
-        "primary": "#3B82F6",
-        "secondary": "#60A5FA",
-        "accent": "#10B981",
-        "neutral": "#1E293B",
-        "base-100": "#FFFFFF",
-        "info": "#3ABFF8",
-        "success": "#10B981",
-        "warning": "#FBBD23",
-        "error": "#EF4444",
-      },
-    },
-  ];
+@plugin "daisyui";
+
+@theme {
+  /* Custom color palette */
+  --color-primary: #3B82F6;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #60A5FA;
+  --color-secondary-content: #FFFFFF;
+  --color-accent: #10B981;
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #1E293B;
+  --color-neutral-content: #FFFFFF;
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F8FAFC;
+  --color-base-300: #E2E8F0;
+  --color-base-content: #1E293B;
+  --color-info: #3ABFF8;
+  --color-info-content: #FFFFFF;
+  --color-success: #10B981;
+  --color-success-content: #FFFFFF;
+  --color-warning: #FBBD23;
+  --color-warning-content: #000000;
+  --color-error: #EF4444;
+  --color-error-content: #FFFFFF;
 }
 
-/*custom styles */
-.font-inter {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-.active {
-  color: #3B82F6;
-  font-weight: 600;
-  background: rgba(59, 130, 246, 0.1);
-  border-radius: 8px;
+@layer components {
+  .font-inter {
+    font-family: "Inter", sans-serif;
+  }
+
+  .active {
+    color: #3B82F6;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
+  }
+
+  /* Smooth animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
