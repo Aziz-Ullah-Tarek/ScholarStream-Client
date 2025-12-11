@@ -71,22 +71,22 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-white to-[#6AECE1]/5">
       {/* Top Navigation Bar */}
-      <nav className="bg-white shadow-lg border-b-2 border-purple-200 sticky top-0 z-50">
+      <nav className="bg-white shadow-lg border-b-2 border-[#6AECE1] sticky top-0 z-50">
         <div className="max-w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Left: Menu + Logo */}
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden p-2 rounded-lg hover:bg-purple-100 text-purple-600 transition-colors"
+                className="lg:hidden p-2 rounded-lg hover:bg-[#6AECE1]/20 text-[#26CCC2] transition-colors"
               >
                 {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
               </button>
               
               <Link to="/" className="flex items-center gap-2">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <div className="text-3xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                   ScholarStream
                 </div>
               </Link>
@@ -98,11 +98,12 @@ const Dashboard = () => {
                 <img
                   src={user?.photoURL || 'https://via.placeholder.com/40'}
                   alt="Profile"
-                  className="w-10 h-10 rounded-full border-2 border-purple-300 object-cover"
+                  className="w-10 h-10 rounded-full border-2 border-[#6AECE1] object-cover"
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/40'; }}
                 />
                 <div className="text-right">
                   <p className="text-sm font-semibold text-gray-800">{user?.displayName || 'User'}</p>
-                  <span className={`text-xs px-2 py-0.5 rounded-full bg-gradient-to-r ${getRoleBadgeColor(userRole)} text-white font-bold uppercase`}>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-[#FFB76C] to-[#FFF57E] text-gray-800 font-bold uppercase">
                     {userRole}
                   </span>
                 </div>
@@ -110,10 +111,11 @@ const Dashboard = () => {
               
               <button
                 onClick={handleLogout}
-                className="p-2 rounded-lg hover:bg-red-100 text-red-600 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold transition-all shadow-md hover:shadow-lg"
                 title="Logout"
               >
-                <FiLogOut size={20} />
+                <FiLogOut size={18} />
+                <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
           </div>
@@ -124,15 +126,15 @@ const Dashboard = () => {
         {/* Sidebar */}
         <aside className={`
           fixed lg:static inset-y-0 left-0 z-40 w-64 
-          bg-white shadow-2xl border-r-2 border-purple-200
+          bg-white shadow-2xl border-r-2 border-[#6AECE1]
           transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           mt-16 lg:mt-0
         `}>
           <div className="h-full flex flex-col">
             {/* Sidebar Header - Only visible on larger screens */}
-            <div className="hidden lg:block p-6 border-b-2 border-purple-100">
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <div className="hidden lg:block p-6 border-b-2 border-[#6AECE1]/30">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent">
                 Dashboard Menu
               </h2>
               <p className="text-sm text-gray-500 mt-1">
@@ -145,13 +147,13 @@ const Dashboard = () => {
               {/* Home Link */}
               <Link
                 to="/"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 transition-all group"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gradient-to-r hover:from-[#6AECE1]/20 hover:to-[#26CCC2]/20 transition-all group"
               >
-                <FiHome className="text-xl group-hover:text-purple-600" />
-                <span className="font-medium group-hover:text-purple-600">Back to Home</span>
+                <FiHome className="text-xl group-hover:text-[#26CCC2]" />
+                <span className="font-medium group-hover:text-[#26CCC2]">Back to Home</span>
               </Link>
 
-              <div className="border-t-2 border-purple-100 my-4"></div>
+              <div className="border-t-2 border-[#6AECE1]/30 my-4"></div>
 
               {/* Role-based Links */}
               {sidebarLinks.map((link) => {
@@ -164,13 +166,13 @@ const Dashboard = () => {
                     className={`
                       flex items-center gap-3 px-4 py-3 rounded-xl transition-all group
                       ${isActive 
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105' 
-                        : 'text-gray-700 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100'
+                        ? 'bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white shadow-lg scale-105' 
+                        : 'text-gray-700 hover:bg-gradient-to-r hover:from-[#6AECE1]/20 hover:to-[#26CCC2]/20'
                       }
                     `}
                   >
-                    <link.icon className={`text-xl ${isActive ? 'text-white' : 'group-hover:text-purple-600'}`} />
-                    <span className={`font-medium ${isActive ? 'text-white' : 'group-hover:text-purple-600'}`}>
+                    <link.icon className={`text-xl ${isActive ? 'text-white' : 'group-hover:text-[#26CCC2]'}`} />
+                    <span className={`font-medium ${isActive ? 'text-white' : 'group-hover:text-[#26CCC2]'}`}>
                       {link.label}
                     </span>
                   </Link>
@@ -179,18 +181,19 @@ const Dashboard = () => {
             </nav>
 
             {/* Sidebar Footer */}
-            <div className="p-4 border-t-2 border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50">
+            <div className="p-4 border-t-2 border-[#6AECE1]/30 bg-gradient-to-r from-[#6AECE1]/10 to-[#26CCC2]/10">
               <div className="flex items-center gap-3 mb-3">
                 <img
                   src={user?.photoURL || 'https://via.placeholder.com/40'}
                   alt="Profile"
-                  className="w-12 h-12 rounded-full border-2 border-purple-300 object-cover"
+                  className="w-12 h-12 rounded-full border-2 border-[#6AECE1] object-cover"
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/40'; }}
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-gray-800 truncate">
                     {user?.displayName || 'User'}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                  <p className="text-xs text-gray-600 truncate">{user?.email}</p>
                 </div>
               </div>
             </div>

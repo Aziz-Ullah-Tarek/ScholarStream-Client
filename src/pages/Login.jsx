@@ -65,13 +65,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-100 py-6 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-white to-[#6AECE1]/20 py-6 px-4">
       <div className="max-w-lg w-full mx-auto">
         <div className="text-center mb-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-violet-500 to-pink-600 rounded-2xl shadow-lg mb-2">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-2xl shadow-lg mb-2">
             <span className="text-4xl">🎓</span>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">Welcome Back</h2>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent mb-2">Welcome Back</h2>
           <p className="text-gray-600">Sign in to continue your journey</p>
         </div>
 
@@ -91,7 +91,7 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email address"
-                  className={`input input-sm input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-sm input-bordered w-full bg-gray-50 border-2 focus:border-[#26CCC2] focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.email && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.email}</span>}
               </div>
@@ -110,12 +110,12 @@ const Login = () => {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Enter your password"
-                    className={`input input-sm input-bordered w-full pr-10 bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.password ? 'border-red-400' : 'border-gray-200'}`}
+                    className={`input input-sm input-bordered w-full pr-10 bg-gray-50 border-2 focus:border-[#26CCC2] focus:bg-white transition-all ${errors.password ? 'border-red-400' : 'border-gray-200'}`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-500 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#26CCC2] transition-colors"
                   >
                     {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
                   </button>
@@ -124,7 +124,7 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-violet-600 to-pink-600 text-white border-0 hover:from-violet-700 hover:to-pink-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
+              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white border-0 hover:from-[#FFB76C] hover:to-[#FFF57E] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
                 Sign In
               </button>
             </form>
@@ -135,9 +135,9 @@ const Login = () => {
             {/* Google Login */}
             <button
               onClick={handleGoogleLogin}
-              className="btn btn-outline w-full gap-2 h-11 border-2 border-gray-300 hover:border-purple-500 hover:bg-purple-50 text-gray-700 hover:text-purple-600 font-semibold transition-all"
+              className="btn btn-outline w-full gap-2 h-11 border-2 border-gray-300 hover:border-[#26CCC2] hover:bg-[#6AECE1]/10 text-gray-700 hover:text-[#26CCC2] font-semibold transition-all"
             >
-              <FaGoogle className="text-lg text-purple-400" />
+              <FaGoogle className="text-lg text-[#FFB76C]" />
               Sign in with Google
             </button>
 
@@ -145,7 +145,7 @@ const Login = () => {
             <div className="text-center mt-4 pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
-                <Link to="/register" className="text-purple-600 font-semibold hover:text-pink-600 hover:underline transition-colors">
+                <Link to="/register" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C] hover:underline transition-colors">
                   Create Account
                 </Link>
               </p>

@@ -72,10 +72,10 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-violet-100 py-6 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-white to-[#6AECE1]/20 py-6 px-4">
       <div className="max-w-lg w-full mx-auto">
         <div className="text-center mb-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-violet-500 to-pink-600 rounded-2xl shadow-lg mb-2">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-2xl shadow-lg mb-2">
             <span className="text-4xl">🎓</span>
           </div>
           <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">Create Account</h2>
