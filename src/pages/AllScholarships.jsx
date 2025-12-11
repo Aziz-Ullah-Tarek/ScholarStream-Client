@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaGraduationCap, FaDollarSign, FaCalendarAlt, FaTimes } from 'react-icons/fa';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const AllScholarships = () => {
   const [scholarships, setScholarships] = useState([]);
@@ -131,6 +132,11 @@ const AllScholarships = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Loading State */}
+        {loading ? (
+          <LoadingSpinner message="Loading scholarships..." />
+        ) : (
+          <>
         {/* Search and Filter Bar */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
@@ -375,6 +381,8 @@ const AllScholarships = () => {
               </motion.div>
             ))}
           </div>
+        )}
+        </>
         )}
       </div>
     </div>

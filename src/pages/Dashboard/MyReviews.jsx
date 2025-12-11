@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -135,8 +136,9 @@ const MyReviews = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-2">My Reviews</h1>
         <p className="text-gray-600">Manage all your scholarship reviews</p>
       </motion.div>
-
-      <motion.div
+      {loading ? (
+        <LoadingSpinner message="Loading your reviews..." />
+      ) : (      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -208,6 +210,7 @@ const MyReviews = () => {
           </table>
         </div>
       </motion.div>
+      )}
 
       {/* Edit Review Modal */}
       <AnimatePresence>

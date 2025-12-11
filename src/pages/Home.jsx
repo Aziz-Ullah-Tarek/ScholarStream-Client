@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { FaSearch, FaMapMarkerAlt, FaGraduationCap, FaDollarSign, FaCalendarAlt } from 'react-icons/fa';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Home = () => {
   const [scholarships, setScholarships] = useState([]);
@@ -91,9 +92,7 @@ const Home = () => {
           </motion.div>
 
           {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <span className="loading loading-spinner loading-lg text-blue-500"></span>
-            </div>
+            <LoadingSpinner message="Loading scholarships..." />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {scholarships.map((scholarship, index) => (

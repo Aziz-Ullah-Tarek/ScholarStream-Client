@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiEdit2, FiTrash2, FiSearch, FiX, FiGrid, FiList, FiGlobe, FiCalendar, FiDollarSign, FiAward, FiBook, FiMapPin, FiSave } from 'react-icons/fi';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ManageScholarships = () => {
   const { user } = useAuth();
@@ -105,11 +106,7 @@ const ManageScholarships = () => {
   ];
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#26CCC2]"></span>
-      </div>
-    );
+    return <LoadingSpinner message="Loading scholarships..." fullScreen />;
   }
 
   return (

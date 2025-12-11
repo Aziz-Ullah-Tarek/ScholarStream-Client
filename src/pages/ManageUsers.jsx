@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiSearch, FiTrash2, FiShield } from 'react-icons/fi';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -120,11 +121,7 @@ const ManageUsers = () => {
   const stats = getRoleStats();
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#26CCC2]"></span>
-      </div>
-    );
+    return <LoadingSpinner message="Loading users..." fullScreen />;
   }
 
   return (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { FiEye, FiEdit2, FiTrash2, FiDollarSign, FiStar } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const MyApplications = () => {
   const { user } = useAuth();
@@ -128,8 +129,9 @@ const MyApplications = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-2">My Applications</h1>
         <p className="text-gray-600">Track and manage all your scholarship applications</p>
       </motion.div>
-
-      <motion.div
+      {loading ? (
+        <LoadingSpinner message="Loading your applications..." />
+      ) : (      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -242,6 +244,7 @@ const MyApplications = () => {
           </table>
         </div>
       </motion.div>
+      )}
 
       {/* Details Modal */}
       <AnimatePresence>

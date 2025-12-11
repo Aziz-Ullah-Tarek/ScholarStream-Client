@@ -10,6 +10,7 @@ import {
   BarChart, Bar, PieChart, Pie, Cell, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Analytics = () => {
   const { user, userRole } = useAuth();
@@ -120,11 +121,7 @@ const Analytics = () => {
   const COLORS = ['#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#3B82F6', '#EF4444'];
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <div className="loading loading-spinner loading-lg text-[#26CCC2]"></div>
-      </div>
-    );
+    return <LoadingSpinner message="Loading analytics data..." fullScreen />;
   }
 
   return (

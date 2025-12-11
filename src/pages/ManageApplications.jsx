@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiEye, FiMessageSquare, FiCheck, FiX, FiEdit2, FiClock, FiCheckCircle, FiXCircle, FiDollarSign, FiMail, FiUser, FiBook, FiCalendar } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ManageApplications = () => {
   const { user } = useAuth();
@@ -115,11 +116,7 @@ const ManageApplications = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <span className="loading loading-spinner loading-lg text-[#26CCC2]"></span>
-      </div>
-    );
+    return <LoadingSpinner message="Loading applications..." fullScreen />;
   }
 
   return (

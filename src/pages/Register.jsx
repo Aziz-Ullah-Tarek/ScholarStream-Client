@@ -78,7 +78,7 @@ const Register = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] rounded-2xl shadow-lg mb-2">
             <span className="text-4xl">🎓</span>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent mb-2">Create Account</h2>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent mb-2">Create Account</h2>
           <p className="text-gray-600">Join ScholarStream and unlock opportunities</p>
         </div>
 
@@ -89,7 +89,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaUser className="text-purple-500" /> Full Name
+                    <FaUser className="text-[#26CCC2]" /> Full Name
                   </span>
                 </label>
                 <input
@@ -98,7 +98,7 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-[#26CCC2] focus:bg-white transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.name}</span>}
               </div>
@@ -107,7 +107,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaEnvelope className="text-purple-500" /> Email Address
+                    <FaEnvelope className="text-[#26CCC2]" /> Email Address
                   </span>
                 </label>
                 <input
@@ -116,7 +116,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email address"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-[#26CCC2] focus:bg-white transition-all ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.email && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.email}</span>}
               </div>
@@ -125,7 +125,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaImage className="text-purple-500" /> Profile Photo URL
+                    <FaImage className="text-[#26CCC2]" /> Profile Photo URL
                   </span>
                 </label>
                 <input
@@ -134,7 +134,7 @@ const Register = () => {
                   value={formData.photoURL}
                   onChange={handleChange}
                   placeholder="Enter your profile photo URL"
-                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-purple-500 focus:bg-white transition-all ${errors.photoURL ? 'border-red-400' : 'border-gray-200'}`}
+                  className={`input input-bordered w-full bg-gray-50 border-2 focus:border-[#26CCC2] focus:bg-white transition-all ${errors.photoURL ? 'border-red-400' : 'border-gray-200'}`}
                 />
                 {errors.photoURL && <span className="text-red-500 text-xs mt-1 flex items-center gap-1"><span>⚠</span>{errors.photoURL}</span>}
               </div>
@@ -177,7 +177,7 @@ const Register = () => {
             <div className="text-center mt-6 pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link to="/login" className="text-purple-600 font-semibold hover:text-pink-600 hover:underline transition-colors">
+                <Link to="/login" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C] hover:underline transition-colors">
                   Sign In
                 </Link>
               </p>
