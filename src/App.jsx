@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import AllScholarships from './pages/AllScholarships';
 import ScholarshipDetails from './pages/ScholarshipDetails';
+import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/scholarship/:id',
         element: <ScholarshipDetails />,
+      },
+      {
+        path: '/checkout/:id',
+        element: <Checkout />,
       },
       {
         path: '/login',
