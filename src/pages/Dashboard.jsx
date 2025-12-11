@@ -8,7 +8,7 @@ import {
 import { toast } from 'react-toastify';
 
 const Dashboard = () => {
-  const { user, userRole, logout } = useAuth();
+  const { user, userRole, logoutUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await logoutUser();
       toast.success('Logged out successfully');
       navigate('/');
     } catch (error) {
@@ -181,16 +181,16 @@ const Dashboard = () => {
             </nav>
 
             {/* Sidebar Footer */}
-            <div className="p-4 border-t-2 border-[#6AECE1]/30 bg-gradient-to-r from-[#6AECE1]/10 to-[#26CCC2]/10">
+            <div className="p-4 border-t-2 border-[#6AECE1]/30 bg-white">
               <div className="flex items-center gap-3 mb-3">
                 <img
                   src={user?.photoURL || 'https://via.placeholder.com/40'}
                   alt="Profile"
-                  className="w-12 h-12 rounded-full border-2 border-[#6AECE1] object-cover"
+                  className="w-12 h-12 rounded-full border-2 border-[#26CCC2] shadow-md object-cover"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/40'; }}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-800 truncate">
+                  <p className="text-sm font-bold text-gray-900 truncate">
                     {user?.displayName || 'User'}
                   </p>
                   <p className="text-xs text-gray-600 truncate">{user?.email}</p>

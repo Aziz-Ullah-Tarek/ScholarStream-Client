@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import AllScholarships from './pages/AllScholarships';
 import ScholarshipDetails from './pages/ScholarshipDetails';
 import Checkout from './pages/Checkout';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFailure from './pages/PaymentFailure';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: '/checkout/:id',
         element: <Checkout />,
+      },
+      {
+        path: '/payment-success',
+        element: <PaymentSuccess />,
+      },
+      {
+        path: '/payment-failure',
+        element: <PaymentFailure />,
       },
       {
         path: '/login',

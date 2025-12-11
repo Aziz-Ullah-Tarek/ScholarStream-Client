@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
 import { FiEye, FiEdit2, FiTrash2, FiDollarSign, FiStar } from 'react-icons/fi';
@@ -8,6 +9,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 
 const MyApplications = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedApplication, setSelectedApplication] = useState(null);
@@ -141,13 +143,13 @@ const MyApplications = () => {
           <table className="table">
             <thead className="bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white">
               <tr>
-                <th>University Name</th>
-                <th>University Address</th>
-                <th>Subject Category</th>
-                <th>Application Fees</th>
-                <th>Status</th>
-                <th>Feedback</th>
-                <th>Actions</th>
+                <th className="text-left">University Name</th>
+                <th className="text-left">University Address</th>
+                <th className="text-center">Subject Category</th>
+                <th className="text-center">Application Fees</th>
+                <th className="text-center">Status</th>
+                <th className="text-left">Feedback</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -166,16 +168,16 @@ const MyApplications = () => {
                     transition={{ delay: index * 0.1 }}
                     className="hover:bg-[#6AECE1]/10"
                   >
-                    <td className="font-semibold">{app.universityName}</td>
+                    <td className="font-semibold text-gray-800">{app.universityName}</td>
                     <td className="text-sm text-gray-600">{app.universityAddress}</td>
-                    <td>
-                      <span className="badge badge-outline border-[#26CCC2] text-[#26CCC2]">
+                    <td className="text-center">
+                      <span className="badge badge-outline border-[#26CCC2] text-[#26CCC2] font-semibold">
                         {app.subjectCategory}
                       </span>
                     </td>
-                    <td className="font-bold text-[#26CCC2]">${app.applicationFees}</td>
-                    <td>
-                      <span className={`badge ${getStatusBadge(app.applicationStatus)}`}>
+                    <td className="font-bold text-[#26CCC2] text-center">${app.applicationFees}</td>
+                    <td className="text-center">
+                      <span className={`badge ${getStatusBadge(app.applicationStatus)} font-semibold uppercase text-xs px-3 py-3`}>
                         {app.applicationStatus}
                       </span>
                     </td>
@@ -183,7 +185,7 @@ const MyApplications = () => {
                       {app.feedback || 'No feedback yet'}
                     </td>
                     <td>
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 justify-center">
                         <button
                           onClick={() => {
                             setSelectedApplication(app);
@@ -206,10 +208,11 @@ const MyApplications = () => {
 
                             {app.paymentStatus === 'unpaid' && (
                               <button
-                                className="btn btn-sm bg-[#FFF57E] hover:bg-[#FFF57E]/80 text-gray-800 border-0"
-                                title="Pay"
+                                onClick={() => navigate(`/checkout/${app.scholarshipId}`)}
+                                className="btn btn-sm bg-green-500 hover:bg-green-600 text-white border-0"
+                                title="Retry Payment"
                               >
-                                <FiDollarSign />
+                                <FiDollarSign /> Pay Now
                               </button>
                             )}
 
@@ -293,7 +296,7 @@ const MyApplications = () => {
                   </div>
                   <div className="bg-[#6AECE1]/10 p-4 rounded-lg">
                     <p className="text-sm text-gray-600 mb-1">Payment Status</p>
-                    <span className={`badge ${selectedApplication.paymentStatus === 'paid' ? 'bg-[#26CCC2]' : 'bg-[#FFF57E] text-gray-800'} text-white`}>
+                    <span className={`badge font-semibold uppercase ${selectedApplication.paymentStatus === 'paid' ? 'bg-[#26CCC2] text-white' : 'bg-[#FFB76C] text-white'}`}>
                       {selectedApplication.paymentStatus}
                     </span>
                   </div>

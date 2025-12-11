@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import {
   FiCreditCard,
   FiDollarSign,
@@ -12,9 +14,287 @@ import {
   FiShield,
   FiLock
 } from 'react-icons/fi';
-import { FaUniversity, FaPaypal, FaStripe } from 'react-icons/fa';
+import { FaUniversity, FaStripe } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+
+// Initialize Stripe
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+// Card Element styling
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      fontSize: '16px',
+      color: '#424770',
+      '::placeholder': {
+        color: '#aab7c4',
+      },
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+    },
+    invalid: {
+      color: '#ef4444',
+      iconColor: '#ef4444',
+    },
+  },
+  hidePostalCode: true,
+};
+
+// Payment Form Component (needs to be inside Elements provider)
+const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  const [processing, setProcessing] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [cardholderName, setCardholderName] = useState(user?.displayName || '');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      toast.error('Stripe has not loaded yet');
+      return;
+    }
+
+    if (!agreedToTerms) {
+      toast.error('Please agree to the terms and conditions');
+      return;
+    }
+
+    if (!cardholderName.trim()) {
+      toast.error('Please enter cardholder name');
+      return;
+    }
+
+    setProcessing(true);
+
+    try {
+      const token = await user.getIdToken();
+
+      // Create payment intent on backend
+      const paymentIntentResponse = await axios.post(
+        'http://localhost:5000/api/create-payment-intent',
+        {
+          amount: totalAmount,
+          scholarshipName: scholarship.scholarshipName
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      const { clientSecret } = paymentIntentResponse.data;
+
+      // Confirm card payment
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: cardholderName,
+            email: user.email,
+          },
+        },
+      });
+
+      if (error) {
+        // Payment failed - save application with unpaid status
+        const failedApplicationData = {
+          scholarshipId: scholarship._id,
+          scholarshipName: scholarship.scholarshipName,
+          universityName: scholarship.universityName,
+          universityImage: scholarship.universityImage,
+          universityCountry: scholarship.universityCountry,
+          degree: scholarship.degree,
+          subjectCategory: scholarship.subjectCategory,
+          applicationFees: scholarship.applicationFees,
+          serviceCharge: scholarship.serviceCharge,
+          userEmail: user.email,
+          userName: user.displayName || 'Anonymous',
+          userPhoto: user.photoURL || '',
+          phone: '',
+          address: '',
+          studyGap: '',
+          gender: '',
+          sscResult: '',
+          hscResult: '',
+          applicationStatus: 'payment-pending',
+          paymentMethod: 'stripe',
+          paymentStatus: 'unpaid',
+          totalPaid: totalAmount,
+          paymentError: error.message
+        };
+
+        try {
+          const failedResponse = await axios.post(
+            'http://localhost:5000/api/applications',
+            failedApplicationData,
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          );
+
+          // Redirect to failure page with application ID
+          navigate(`/payment-failure?applicationId=${failedResponse.data.insertedId}&error=${encodeURIComponent(error.message)}`);
+        } catch (saveError) {
+          console.error('Error saving failed application:', saveError);
+          navigate(`/payment-failure?error=${encodeURIComponent(error.message)}`);
+        }
+        return;
+      }
+
+      if (paymentIntent.status === 'succeeded') {
+        // Create application with payment data
+        const applicationData = {
+          scholarshipId: scholarship._id,
+          scholarshipName: scholarship.scholarshipName,
+          universityName: scholarship.universityName,
+          universityImage: scholarship.universityImage,
+          universityCountry: scholarship.universityCountry,
+          degree: scholarship.degree,
+          subjectCategory: scholarship.subjectCategory,
+          applicationFees: scholarship.applicationFees,
+          serviceCharge: scholarship.serviceCharge,
+          userEmail: user.email,
+          userName: user.displayName || 'Anonymous',
+          userPhoto: user.photoURL || '',
+          phone: '',
+          address: '',
+          studyGap: '',
+          gender: '',
+          sscResult: '',
+          hscResult: '',
+          applicationStatus: 'pending',
+          paymentMethod: 'stripe',
+          paymentStatus: 'paid',
+          totalPaid: totalAmount,
+          stripePaymentIntentId: paymentIntent.id
+        };
+
+        const response = await axios.post(
+          'http://localhost:5000/api/applications',
+          applicationData,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+
+        if (response.data) {
+          // Redirect to success page with application ID
+          navigate(`/payment-success?applicationId=${response.data.insertedId}`);
+        }
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast.error(error.response?.data?.message || 'Payment failed. Please try again.');
+      setProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Stripe Logo */}
+      <div className="flex items-center justify-center gap-3 p-4 bg-gradient-to-br from-indigo-50 to-white rounded-2xl border-2 border-indigo-200">
+        <FaStripe size={40} className="text-indigo-600" />
+        <div className="text-left">
+          <p className="font-semibold text-gray-800">Stripe Payment</p>
+          <p className="text-sm text-gray-600">Secure & Encrypted</p>
+        </div>
+      </div>
+
+      {/* Cardholder Name */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Cardholder Name
+        </label>
+        <input
+          type="text"
+          value={cardholderName}
+          onChange={(e) => setCardholderName(e.target.value)}
+          placeholder="John Doe"
+          className="input input-bordered w-full rounded-xl focus:border-[#26CCC2] focus:outline-none"
+          disabled={processing}
+          required
+        />
+      </div>
+
+      {/* Stripe Card Element */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+          <FiLock className="text-green-500" />
+          Card Information
+        </label>
+        <div className="p-4 border-2 border-gray-200 rounded-xl focus-within:border-[#26CCC2] transition-colors bg-white">
+          <CardElement options={CARD_ELEMENT_OPTIONS} />
+        </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Test card: 4242 4242 4242 4242 | Exp: Any future date | CVC: Any 3 digits
+        </p>
+      </div>
+
+      {/* Terms & Conditions */}
+      <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200">
+        <input
+          type="checkbox"
+          checked={agreedToTerms}
+          onChange={(e) => setAgreedToTerms(e.target.checked)}
+          className="checkbox checkbox-sm border-[#26CCC2] [--chkbg:#26CCC2] [--chkfg:white] mt-1"
+          disabled={processing}
+        />
+        <label className="text-sm text-gray-700">
+          I agree to the{' '}
+          <a href="#" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C]">
+            Terms and Conditions
+          </a>{' '}
+          and{' '}
+          <a href="#" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C]">
+            Privacy Policy
+          </a>
+          . I understand that the application fee is non-refundable once submitted.
+        </label>
+      </div>
+
+      {/* Submit Button */}
+      <motion.button
+        type="submit"
+        disabled={processing || !agreedToTerms || !stripe}
+        whileHover={{ scale: agreedToTerms && !processing ? 1.02 : 1 }}
+        whileTap={{ scale: agreedToTerms && !processing ? 0.98 : 1 }}
+        className={`btn w-full text-lg py-4 h-auto rounded-2xl shadow-lg transition-all ${
+          agreedToTerms && !processing && stripe
+            ? 'bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-[#26CCC2] hover:to-[#FFB76C] text-white border-none'
+            : 'bg-gray-300 text-gray-500 border-none cursor-not-allowed'
+        }`}
+      >
+        {processing ? (
+          <>
+            <span className="loading loading-spinner"></span>
+            Processing Payment...
+          </>
+        ) : (
+          <>
+            <FiShield size={24} />
+            Pay ${totalAmount.toFixed(2)} Securely
+          </>
+        )}
+      </motion.button>
+
+      {/* Security Notice */}
+      <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+        <FiLock size={16} />
+        <span>Your payment information is secure and encrypted with Stripe</span>
+      </div>
+    </form>
+  );
+};
 
 const Checkout = () => {
   const { id } = useParams();
@@ -22,9 +302,6 @@ const Checkout = () => {
   const { user } = useAuth();
   const [scholarship, setScholarship] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [processing, setProcessing] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('stripe');
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -45,67 +322,6 @@ const Checkout = () => {
       navigate('/scholarships');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handlePayment = async (e) => {
-    e.preventDefault();
-
-    if (!agreedToTerms) {
-      toast.error('Please agree to the terms and conditions');
-      return;
-    }
-
-    setProcessing(true);
-
-    try {
-      const token = await user.getIdToken();
-      
-      // Create application with payment
-      const applicationData = {
-        scholarshipId: scholarship._id,
-        scholarshipName: scholarship.scholarshipName,
-        universityName: scholarship.universityName,
-        universityImage: scholarship.universityImage,
-        universityCountry: scholarship.universityCountry,
-        degree: scholarship.degree,
-        subjectCategory: scholarship.subjectCategory,
-        applicationFees: scholarship.applicationFees,
-        serviceCharge: scholarship.serviceCharge,
-        userEmail: user.email,
-        userName: user.displayName || 'Anonymous',
-        userPhoto: user.photoURL || '',
-        phone: '',
-        address: '',
-        studyGap: '',
-        gender: '',
-        sscResult: '',
-        hscResult: '',
-        applicationStatus: 'pending',
-        paymentMethod: paymentMethod,
-        paymentStatus: 'completed',
-        totalPaid: scholarship.applicationFees + scholarship.serviceCharge
-      };
-
-      const response = await axios.post(
-        'http://localhost:5000/api/applications',
-        applicationData,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      );
-
-      if (response.data) {
-        toast.success('🎉 Payment successful! Application submitted.');
-        navigate('/dashboard/my-applications');
-      }
-    } catch (error) {
-      console.error('Error processing payment:', error);
-      toast.error(error.response?.data?.message || 'Payment failed. Please try again.');
-    } finally {
-      setProcessing(false);
     }
   };
 
@@ -148,197 +364,13 @@ const Checkout = () => {
                 <h1 className="text-3xl font-bold text-gray-800">Payment Checkout</h1>
               </div>
 
-              <form onSubmit={handlePayment} className="space-y-8">
-                {/* Payment Method Selection */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-4">
-                    Select Payment Method
-                  </label>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    {/* Stripe */}
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      onClick={() => setPaymentMethod('stripe')}
-                      className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${
-                        paymentMethod === 'stripe'
-                          ? 'border-[#26CCC2] bg-gradient-to-br from-[#6AECE1]/10 to-white shadow-lg'
-                          : 'border-gray-200 hover:border-[#6AECE1]/50'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-3">
-                        <FaStripe size={40} className="text-indigo-600" />
-                        <span className="font-semibold text-gray-800">Stripe</span>
-                        {paymentMethod === 'stripe' && (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="w-6 h-6 rounded-full bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] flex items-center justify-center"
-                          >
-                            <FiCheck className="text-white" size={14} />
-                          </motion.div>
-                        )}
-                      </div>
-                    </motion.div>
-
-                    {/* PayPal */}
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      onClick={() => setPaymentMethod('paypal')}
-                      className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${
-                        paymentMethod === 'paypal'
-                          ? 'border-[#26CCC2] bg-gradient-to-br from-[#6AECE1]/10 to-white shadow-lg'
-                          : 'border-gray-200 hover:border-[#6AECE1]/50'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-3">
-                        <FaPaypal size={40} className="text-blue-600" />
-                        <span className="font-semibold text-gray-800">PayPal</span>
-                        {paymentMethod === 'paypal' && (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="w-6 h-6 rounded-full bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] flex items-center justify-center"
-                          >
-                            <FiCheck className="text-white" size={14} />
-                          </motion.div>
-                        )}
-                      </div>
-                    </motion.div>
-
-                    {/* Credit Card */}
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      onClick={() => setPaymentMethod('credit-card')}
-                      className={`cursor-pointer p-6 rounded-2xl border-2 transition-all ${
-                        paymentMethod === 'credit-card'
-                          ? 'border-[#26CCC2] bg-gradient-to-br from-[#6AECE1]/10 to-white shadow-lg'
-                          : 'border-gray-200 hover:border-[#6AECE1]/50'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-3">
-                        <FiCreditCard size={40} className="text-green-600" />
-                        <span className="font-semibold text-gray-800">Card</span>
-                        {paymentMethod === 'credit-card' && (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="w-6 h-6 rounded-full bg-gradient-to-br from-[#26CCC2] to-[#6AECE1] flex items-center justify-center"
-                          >
-                            <FiCheck className="text-white" size={14} />
-                          </motion.div>
-                        )}
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-
-                {/* Card Details (Simulated) */}
-                <div className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-200">
-                  <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <FiLock className="text-green-500" />
-                    Secure Payment Information
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Card Number
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="1234 5678 9012 3456"
-                        className="input input-bordered w-full rounded-xl focus:border-[#26CCC2] focus:outline-none"
-                        disabled={processing}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Expiry Date
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="MM/YY"
-                        className="input input-bordered w-full rounded-xl focus:border-[#26CCC2] focus:outline-none"
-                        disabled={processing}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        CVV
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="123"
-                        className="input input-bordered w-full rounded-xl focus:border-[#26CCC2] focus:outline-none"
-                        disabled={processing}
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Cardholder Name
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        className="input input-bordered w-full rounded-xl focus:border-[#26CCC2] focus:outline-none"
-                        disabled={processing}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Terms & Conditions */}
-                <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200">
-                  <input
-                    type="checkbox"
-                    checked={agreedToTerms}
-                    onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    className="checkbox checkbox-sm border-[#26CCC2] [--chkbg:#26CCC2] [--chkfg:white] mt-1"
-                    disabled={processing}
-                  />
-                  <label className="text-sm text-gray-700">
-                    I agree to the{' '}
-                    <a href="#" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C]">
-                      Terms and Conditions
-                    </a>{' '}
-                    and{' '}
-                    <a href="#" className="text-[#26CCC2] font-semibold hover:text-[#FFB76C]">
-                      Privacy Policy
-                    </a>
-                    . I understand that the application fee is non-refundable once submitted.
-                  </label>
-                </div>
-
-                {/* Submit Button */}
-                <motion.button
-                  type="submit"
-                  disabled={processing || !agreedToTerms}
-                  whileHover={{ scale: agreedToTerms ? 1.02 : 1 }}
-                  whileTap={{ scale: agreedToTerms ? 0.98 : 1 }}
-                  className={`btn w-full text-lg py-4 h-auto rounded-2xl shadow-lg transition-all ${
-                    agreedToTerms && !processing
-                      ? 'bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-[#26CCC2] hover:to-[#FFB76C] text-white border-none'
-                      : 'bg-gray-300 text-gray-500 border-none cursor-not-allowed'
-                  }`}
-                >
-                  {processing ? (
-                    <>
-                      <span className="loading loading-spinner"></span>
-                      Processing Payment...
-                    </>
-                  ) : (
-                    <>
-                      <FiShield size={24} />
-                      Pay ${totalAmount.toFixed(2)} Securely
-                    </>
-                  )}
-                </motion.button>
-
-                {/* Security Notice */}
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-                  <FiLock size={16} />
-                  <span>Your payment information is secure and encrypted</span>
-                </div>
-              </form>
+              {/* Stripe Elements Payment Form */}
+              <Elements stripe={stripePromise}>
+                <PaymentForm 
+                  scholarship={scholarship} 
+                  totalAmount={totalAmount}
+                />
+              </Elements>
             </motion.div>
           </div>
 
