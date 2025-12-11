@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 import { FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 const MyReviews = () => {
   const { user } = useAuth();
@@ -43,12 +45,12 @@ const MyReviews = () => {
     const trimmedComment = editData.reviewComment.trim();
     
     if (!trimmedComment) {
-      alert('Please enter a review comment');
+      toast.error('Please enter a review comment');
       return;
     }
 
     if (trimmedComment.length < 10) {
-      alert('Review comment must be at least 10 characters long');
+      toast.error('Review comment must be at least 10 characters long');
       return;
     }
 
@@ -66,23 +68,21 @@ const MyReviews = () => {
       });
 
       if (response.ok) {
-        alert('Review updated successfully!');
+        toast.success('Review updated successfully!');
         setShowEditModal(false);
         setEditData({ ratingPoint: 5, reviewComment: '' });
         fetchReviews();
       } else {
         const error = await response.json();
-        alert(error.message || 'Failed to update review');
+        toast.error(error.message || 'Failed to update review');
       }
     } catch (error) {
       console.error('Error updating review:', error);
-      alert('Failed to update review. Please try again.');
+      toast.error('Failed to update review. Please try again.');
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this review?')) return;
-
     try {
       const response = await fetch(`http://localhost:5000/api/reviews/${id}`, {
         method: 'DELETE',
@@ -93,14 +93,14 @@ const MyReviews = () => {
 
       if (response.ok) {
         setReviews(reviews.filter(review => review._id !== id));
-        alert('Review deleted successfully');
+        toast.success('Review deleted successfully!');
       } else {
         const error = await response.json();
-        alert(error.message || 'Failed to delete review');
+        toast.error(error.message || 'Failed to delete review');
       }
     } catch (error) {
       console.error('Error deleting review:', error);
-      alert('Failed to delete review. Please try again.');
+      toast.error('Failed to delete review. Please try again.');
     }
   };
 

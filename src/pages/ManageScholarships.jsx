@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiEdit2, FiTrash2, FiSearch, FiX, FiGrid, FiList, FiGlobe, FiCalendar, FiDollarSign, FiAward, FiBook, FiMapPin, FiSave } from 'react-icons/fi';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const ManageScholarships = () => {
   const { user } = useAuth();
@@ -32,18 +33,19 @@ const ManageScholarships = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this scholarship?')) {
-      return;
-    }
-
     setDeleteLoading(id);
     try {
-      await axios.delete(`http://localhost:5000/api/scholarships/${id}`);
-      toast.success('Scholarship deleted successfully');
+      const token = await user.getIdToken();
+      await axios.delete(`http://localhost:5000/api/scholarships/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      toast.success('Scholarship deleted successfully!');
       fetchScholarships();
     } catch (error) {
       console.error('Error deleting scholarship:', error);
-      toast.error('Failed to delete scholarship');
+      toast.error(error.response?.data?.message || 'Failed to delete scholarship');
     } finally {
       setDeleteLoading(null);
     }
@@ -70,6 +72,7 @@ const ManageScholarships = () => {
 
   const handleUpdate = async (id) => {
     try {
+      const token = await user.getIdToken();
       const updatedData = {
         ...updateFormData,
         universityWorldRank: parseInt(updateFormData.universityWorldRank),
@@ -78,13 +81,17 @@ const ManageScholarships = () => {
         serviceCharge: parseFloat(updateFormData.serviceCharge),
       };
 
-      await axios.put(`http://localhost:5000/api/scholarships/${id}`, updatedData);
+      await axios.put(`http://localhost:5000/api/scholarships/${id}`, updatedData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       toast.success('Scholarship updated successfully');
       setEditingScholarship(null);
       fetchScholarships();
     } catch (error) {
       console.error('Error updating scholarship:', error);
-      toast.error('Failed to update scholarship');
+      toast.error(error.response?.data?.message || 'Failed to update scholarship');
     }
   };
 

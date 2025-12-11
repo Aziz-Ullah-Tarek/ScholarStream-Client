@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiSearch, FiTrash2, FiShield } from 'react-icons/fi';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -36,10 +37,6 @@ const ManageUsers = () => {
   };
 
   const handleRoleChange = async (email, newRole) => {
-    if (!window.confirm(`Are you sure you want to change this user's role to ${newRole}?`)) {
-      return;
-    }
-
     setRoleUpdateLoading(email);
     try {
       const token = await user.getIdToken();
@@ -65,10 +62,6 @@ const ManageUsers = () => {
   const handleDelete = async (email) => {
     if (email === user?.email) {
       toast.error('You cannot delete your own account');
-      return;
-    }
-
-    if (!window.confirm('Are you sure you want to delete this user?')) {
       return;
     }
 

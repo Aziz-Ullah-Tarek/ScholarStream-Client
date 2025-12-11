@@ -58,6 +58,7 @@ const AddScholarship = () => {
     setLoading(true);
 
     try {
+      const token = await user.getIdToken();
       // Convert numeric fields
       const scholarshipData = {
         ...formData,
@@ -67,7 +68,11 @@ const AddScholarship = () => {
         serviceCharge: parseFloat(formData.serviceCharge),
       };
 
-      const response = await axios.post('http://localhost:5000/api/scholarships', scholarshipData);
+      const response = await axios.post('http://localhost:5000/api/scholarships', scholarshipData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
       if (response.data) {
         toast.success('Scholarship added successfully! 🎉');

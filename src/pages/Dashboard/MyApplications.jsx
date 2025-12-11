@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 import { FiEye, FiEdit2, FiTrash2, FiDollarSign, FiStar } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 const MyApplications = () => {
   const { user } = useAuth();
@@ -32,8 +34,6 @@ const MyApplications = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this application?')) return;
-
     try {
       const response = await fetch(`http://localhost:5000/api/applications/${id}`, {
         method: 'DELETE',
@@ -44,14 +44,14 @@ const MyApplications = () => {
 
       if (response.ok) {
         setApplications(applications.filter(app => app._id !== id));
-        alert('Application deleted successfully');
+        toast.success('Application deleted successfully!');
       } else {
         const error = await response.json();
-        alert(error.message || 'Failed to delete application');
+        toast.error(error.message || 'Failed to delete application');
       }
     } catch (error) {
       console.error('Error deleting application:', error);
-      alert('Failed to delete application. Please try again.');
+      toast.error('Failed to delete application. Please try again.');
     }
   };
 
@@ -59,12 +59,12 @@ const MyApplications = () => {
     const trimmedComment = reviewData.reviewComment.trim();
     
     if (!trimmedComment) {
-      alert('Please enter a review comment');
+      toast.error('Please enter a review comment');
       return;
     }
 
     if (trimmedComment.length < 10) {
-      alert('Review comment must be at least 10 characters long');
+      toast.error('Review comment must be at least 10 characters long');
       return;
     }
 
@@ -88,16 +88,16 @@ const MyApplications = () => {
       });
 
       if (response.ok) {
-        alert('Review submitted successfully!');
+        toast.success('Review submitted successfully!');
         setShowReviewModal(false);
         setReviewData({ ratingPoint: 5, reviewComment: '' });
       } else {
         const error = await response.json();
-        alert(error.message || 'Failed to submit review');
+        toast.error(error.message || 'Failed to submit review');
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      alert('Failed to submit review. Please try again.');
+      toast.error('Failed to submit review. Please try again.');
     }
   };
 
