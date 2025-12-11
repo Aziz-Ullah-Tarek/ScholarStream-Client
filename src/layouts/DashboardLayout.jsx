@@ -10,7 +10,9 @@ import {
   FiBarChart2, 
   FiMenu, 
   FiX,
-  FiLogOut 
+  FiLogOut,
+  FiFileText,
+  FiStar
 } from 'react-icons/fi';
 
 const DashboardLayout = () => {
@@ -38,8 +40,15 @@ const DashboardLayout = () => {
     { path: '/dashboard/manage-applications', label: 'Manage Applications', icon: FiBook },
   ];
 
+  // Student sidebar links
+  const studentLinks = [
+    { path: '/dashboard', label: 'My Profile', icon: FiUser, end: true },
+    { path: '/dashboard/my-applications', label: 'My Applications', icon: FiFileText },
+    { path: '/dashboard/my-reviews', label: 'My Reviews', icon: FiStar },
+  ];
+
   // Get links based on role
-  const sidebarLinks = userRole === 'admin' ? adminLinks : userRole === 'moderator' ? moderatorLinks : [];
+  const sidebarLinks = userRole === 'admin' ? adminLinks : userRole === 'moderator' ? moderatorLinks : studentLinks;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-[#26CCC2]/10 to-[#6AECE1]/10">

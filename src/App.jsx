@@ -12,6 +12,8 @@ import ManageScholarships from './pages/ManageScholarships';
 import ManageUsers from './pages/ManageUsers';
 import Analytics from './pages/Analytics';
 import ManageApplications from './pages/ManageApplications';
+import MyApplications from './pages/Dashboard/MyApplications';
+import MyReviews from './pages/Dashboard/MyReviews';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFound';
 
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
       {
         path: 'manage-applications',
         element: <ManageApplications />,
+      },
+      {
+        path: 'my-applications',
+        element: <MyApplications />,
+      },
+      {
+        path: 'my-reviews',
+        element: <MyReviews />,
       },
     ],
   },
