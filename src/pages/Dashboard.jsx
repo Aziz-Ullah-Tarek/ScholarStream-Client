@@ -95,16 +95,18 @@ const Dashboard = () => {
 
             {/* Right: User Info */}
             <div className="flex items-center gap-4">
-              <div className="hidden sm:flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-3 bg-white/50 backdrop-blur-sm px-3 py-2 rounded-xl border border-gray-200">
                 <img
-                  src={user?.photoURL || 'https://via.placeholder.com/40'}
+                  src={user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || 'User')}&background=26CCC2&color=fff&size=40`}
                   alt="Profile"
-                  className="w-10 h-10 rounded-full border-2 border-[#6AECE1] object-cover"
-                  onError={(e) => { e.target.src = 'https://via.placeholder.com/40'; }}
+                  className="w-10 h-10 rounded-full border-2 border-[#26CCC2] object-cover shadow-sm"
+                  onError={(e) => { 
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || 'User')}&background=26CCC2&color=fff&size=40`; 
+                  }}
                 />
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-gray-800">{user?.displayName || 'User'}</p>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-[#FFB76C] to-[#FFF57E] text-gray-800 font-bold uppercase">
+                  <p className="text-sm font-bold text-gray-900">{user?.displayName || 'User'}</p>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-[#FFB76C] to-[#FFF57E] text-gray-900 font-bold uppercase shadow-sm">
                     {userRole}
                   </span>
                 </div>
@@ -182,14 +184,19 @@ const Dashboard = () => {
             </nav>
 
             {/* Sidebar Footer */}
-            <div className="p-4 border-t-2 border-[#6AECE1]/30 bg-white">
-              <div className="flex items-center gap-3 mb-3">
-                <img
-                  src={user?.photoURL || 'https://via.placeholder.com/40'}
-                  alt="Profile"
-                  className="w-12 h-12 rounded-full border-2 border-[#26CCC2] shadow-md object-cover"
-                  onError={(e) => { e.target.src = 'https://via.placeholder.com/40'; }}
-                />
+            <div className="p-4 border-t-2 border-[#6AECE1]/30 bg-gradient-to-br from-gray-50 to-white">
+              <div className="flex items-center gap-3 mb-3 p-3 bg-white rounded-xl shadow-sm border border-gray-100">
+                <div className="relative">
+                  <img
+                    src={user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || 'User')}&background=26CCC2&color=fff&size=48`}
+                    alt="Profile"
+                    className="w-12 h-12 rounded-full border-2 border-[#26CCC2] shadow-md object-cover"
+                    onError={(e) => { 
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.displayName || 'User')}&background=26CCC2&color=fff&size=48`; 
+                    }}
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-gray-900 truncate">
                     {user?.displayName || 'User'}

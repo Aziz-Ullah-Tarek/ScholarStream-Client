@@ -95,7 +95,7 @@ const MyProfile = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl font-bold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] bg-clip-text text-transparent"
+                className="text-4xl font-bold bg-gradient-to-r from-[#8c9a99] to-[#828e8d] bg-clip-text text-transparent"
               >
                 {user?.displayName || 'Anonymous User'}
               </motion.h2>
@@ -103,9 +103,9 @@ const MyProfile = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-gray-600 text-xl mt-2 flex items-center gap-2 justify-center md:justify-start"
+                className="text-gray-700 text-xl mt-2 flex items-center gap-2 justify-center md:justify-start"
               >
-                <FiMail className="text-[#26CCC2]" />
+                <FiMail className="text-[#6a918e]" />
                 {user?.email}
               </motion.p>
               <motion.div

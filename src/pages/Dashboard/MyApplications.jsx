@@ -288,14 +288,14 @@ const MyApplications = () => {
                     <p className="text-sm text-gray-600 mb-1">Application Fees</p>
                     <p className="font-semibold text-[#26CCC2]">${selectedApplication.applicationFees}</p>
                   </div>
-                  <div className="bg-[#6AECE1]/10 p-4 rounded-lg">
+                  <div className="bg-[#6AECE1]/10 p-2 rounded-lg">
                     <p className="text-sm text-gray-600 mb-1">Application Status</p>
                     <span className={`badge ${getStatusBadge(selectedApplication.applicationStatus)}`}>
                       {selectedApplication.applicationStatus}
                     </span>
                   </div>
                   <div className="bg-[#6AECE1]/10 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-1">Payment Status</p>
+                    <p className="text-sm text-gray-600 mb">Payment Status</p>
                     <span className={`badge font-semibold uppercase ${selectedApplication.paymentStatus === 'paid' ? 'bg-[#26CCC2] text-white' : 'bg-[#FFB76C] text-white'}`}>
                       {selectedApplication.paymentStatus}
                     </span>
