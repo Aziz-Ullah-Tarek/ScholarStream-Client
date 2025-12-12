@@ -16,6 +16,7 @@ import ManageUsers from './pages/ManageUsers';
 import Analytics from './pages/Analytics';
 import ManageApplications from './pages/ManageApplications';
 import MyApplications from './pages/Dashboard/MyApplications';
+import MyWishlist from './pages/Dashboard/MyWishlist';
 import MyReviews from './pages/Dashboard/MyReviews';
 import ErrorPage from './pages/ErrorPage';
 import NotFound from './pages/NotFound';
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
       {
         path: 'my-applications',
         element: <MyApplications />,
+      },
+      {
+        path: 'my-wishlist',
+        element: <MyWishlist />,
       },
       {
         path: 'my-reviews',

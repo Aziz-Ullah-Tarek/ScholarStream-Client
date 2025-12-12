@@ -12,6 +12,10 @@ const AllScholarships = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  
   // Filter states
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
@@ -30,6 +34,7 @@ const AllScholarships = () => {
 
   useEffect(() => {
     applyFilters();
+    setCurrentPage(1); // Reset to first page when filters change
   }, [searchTerm, selectedCategory, selectedSubject, selectedDegree, selectedCountry, scholarships]);
 
   const fetchScholarships = async () => {
@@ -98,9 +103,21 @@ const AllScholarships = () => {
     setSelectedSubject('');
     setSelectedDegree('');
     setSelectedCountry('');
+    setCurrentPage(1);
   };
 
   const activeFiltersCount = [selectedCategory, selectedSubject, selectedDegree, selectedCountry].filter(Boolean).length;
+
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentScholarships = filteredScholarships.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#6AECE1]/10 via-white to-[#6AECE1]/5">
@@ -263,8 +280,8 @@ const AllScholarships = () => {
 
           {/* Results Count */}
           <div className="mt-4 text-center text-gray-600">
-            Showing <span className="font-bold bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] bg-clip-text text-transparent">{filteredScholarships.length}</span> of{' '}
-            <span className="font-bold">{scholarships.length}</span> scholarships
+            Showing <span className="font-bold bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] bg-clip-text text-transparent">{indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredScholarships.length)}</span> of{' '}
+            <span className="font-bold">{filteredScholarships.length}</span> scholarships
           </div>
         </motion.div>
 
@@ -287,8 +304,9 @@ const AllScholarships = () => {
             </button>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredScholarships.map((scholarship, index) => (
+          <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {currentScholarships.map((scholarship, index) => (
               <motion.div
                 key={scholarship._id}
                 initial={{ opacity: 0, y: 30 }}
@@ -381,6 +399,59 @@ const AllScholarships = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex justify-center items-center gap-2 mt-8"
+            >
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="btn btn-circle bg-white hover:bg-[#26CCC2] hover:text-white border-2 border-[#26CCC2] disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-[#26CCC2]"
+              >
+                ❮
+              </button>
+
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNumber = index + 1;
+                // Show first page, last page, current page, and pages around current
+                if (
+                  pageNumber === 1 ||
+                  pageNumber === totalPages ||
+                  (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                ) {
+                  return (
+                    <button
+                      key={pageNumber}
+                      onClick={() => handlePageChange(pageNumber)}
+                      className={`btn btn-circle ${
+                        currentPage === pageNumber
+                          ? 'bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] text-white border-0'
+                          : 'bg-white hover:bg-[#26CCC2] hover:text-white border-2 border-[#26CCC2]'
+                      }`}
+                    >
+                      {pageNumber}
+                    </button>
+                  );
+                } else if (pageNumber === currentPage - 2 || pageNumber === currentPage + 2) {
+                  return <span key={pageNumber} className="px-2">...</span>;
+                }
+                return null;
+              })}
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="btn btn-circle bg-white hover:bg-[#26CCC2] hover:text-white border-2 border-[#26CCC2] disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-[#26CCC2]"
+              >
+                ❯
+              </button>
+            </motion.div>
+          )}
+          </>
         )}
         </>
         )}

@@ -3,7 +3,7 @@ import { Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   FiHome, FiUser, FiPlus, FiList, FiUsers, FiBarChart2, 
-  FiMenu, FiX, FiLogOut, FiCheckCircle 
+  FiMenu, FiX, FiLogOut, FiCheckCircle, FiHeart
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -48,6 +48,7 @@ const Dashboard = () => {
   const studentLinks = [
     { path: '/dashboard/my-profile', icon: FiUser, label: 'My Profile' },
     { path: '/dashboard/my-applications', icon: FiList, label: 'My Applications' },
+    { path: '/dashboard/my-wishlist', icon: FiHeart, label: 'My Wishlist' },
   ];
 
   // Get links based on role

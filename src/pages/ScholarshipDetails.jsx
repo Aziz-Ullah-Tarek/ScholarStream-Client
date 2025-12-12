@@ -13,9 +13,10 @@ import {
   FiClock,
   FiStar,
   FiUser,
-  FiArrowLeft
+  FiArrowLeft,
+  FiHeart
 } from 'react-icons/fi';
-import { FaUniversity, FaTrophy } from 'react-icons/fa';
+import { FaUniversity, FaTrophy, FaHeart } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
 
@@ -25,13 +26,21 @@ const ScholarshipDetails = () => {
   const { user } = useAuth();
   const [scholarship, setScholarship] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [relatedScholarships, setRelatedScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [averageRating, setAverageRating] = useState(0);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistId, setWishlistId] = useState(null);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
 
   useEffect(() => {
     fetchScholarshipDetails();
     fetchReviews();
-  }, [id]);
+    fetchRelatedScholarships();
+    if (user) {
+      checkWishlistStatus();
+    }
+  }, [id, user]);
 
   const fetchScholarshipDetails = async () => {
     try {
@@ -57,6 +66,77 @@ const ScholarshipDetails = () => {
       }
     } catch (error) {
       console.error('Error fetching reviews:', error);
+    }
+  };
+
+  const fetchRelatedScholarships = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/scholarships/${id}/related`);
+      setRelatedScholarships(response.data);
+    } catch (error) {
+      console.error('Error fetching related scholarships:', error);
+    }
+  };
+
+  const checkWishlistStatus = async () => {
+    if (!user?.email) return;
+    try {
+      const token = await user.getIdToken();
+      const response = await axios.get(
+        `http://localhost:5000/api/wishlist/check/${user.email}/${id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setIsInWishlist(response.data.inWishlist);
+      setWishlistId(response.data.wishlistItem?._id);
+    } catch (error) {
+      console.error('Error checking wishlist:', error);
+    }
+  };
+
+  const toggleWishlist = async () => {
+    if (!user) {
+      toast.warning('Please login to add to wishlist');
+      navigate('/login');
+      return;
+    }
+
+    setWishlistLoading(true);
+    try {
+      const token = await user.getIdToken();
+
+      if (isInWishlist) {
+        // Remove from wishlist
+        await axios.delete(`http://localhost:5000/api/wishlist/${wishlistId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setIsInWishlist(false);
+        setWishlistId(null);
+        toast.success('Removed from wishlist');
+      } else {
+        // Add to wishlist
+        const wishlistData = {
+          userEmail: user.email,
+          scholarshipId: id,
+          scholarshipName: scholarship.scholarshipName,
+          universityName: scholarship.universityName,
+          universityImage: scholarship.universityImage,
+          applicationFees: scholarship.applicationFees,
+          degree: scholarship.degree
+        };
+        const response = await axios.post(
+          'http://localhost:5000/api/wishlist',
+          wishlistData,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setIsInWishlist(true);
+        setWishlistId(response.data.insertedId);
+        toast.success('Added to wishlist');
+      }
+    } catch (error) {
+      console.error('Error toggling wishlist:', error);
+      toast.error(error.response?.data?.message || 'Failed to update wishlist');
+    } finally {
+      setWishlistLoading(false);
     }
   };
 
@@ -431,10 +511,37 @@ const ScholarshipDetails = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleApply}
-                  className="btn w-full bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-[#26CCC2] hover:to-[#FFB76C] text-white border-none text-lg py-4 h-auto rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                  className="btn w-full bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-[#26CCC2] hover:to-[#FFB76C] text-white border-none text-lg py-4 h-auto rounded-2xl shadow-lg hover:shadow-xl transition-all mb-3"
                 >
                   <FiAward size={24} />
                   Apply for Scholarship
+                </motion.button>
+
+                {/* Wishlist Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={toggleWishlist}
+                  disabled={wishlistLoading}
+                  className={`btn w-full border-2 text-lg py-4 h-auto rounded-2xl shadow-md hover:shadow-lg transition-all ${
+                    isInWishlist
+                      ? 'bg-red-50 border-red-300 text-red-600 hover:bg-red-100'
+                      : 'bg-white border-[#26CCC2] text-[#26CCC2] hover:bg-[#6AECE1]/10'
+                  }`}
+                >
+                  {wishlistLoading ? (
+                    <span className="loading loading-spinner loading-sm"></span>
+                  ) : isInWishlist ? (
+                    <>
+                      <FaHeart size={20} />
+                      Remove from Wishlist
+                    </>
+                  ) : (
+                    <>
+                      <FiHeart size={20} />
+                      Add to Wishlist
+                    </>
+                  )}
                 </motion.button>
 
                 {/* Deadline Warning */}
@@ -492,6 +599,62 @@ const ScholarshipDetails = () => {
             </motion.div>
           </div>
         </div>
+
+        {/* You May Also Like Section */}
+        {relatedScholarships.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-12"
+          >
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+              <FiAward className="text-[#26CCC2]" />
+              You May Also Like
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {relatedScholarships.map((relScholarship, index) => (
+                <motion.div
+                  key={relScholarship._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  whileHover={{ y: -8 }}
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all border-2 border-[#6AECE1]/20 hover:border-[#6AECE1] overflow-hidden"
+                >
+                  <figure className="h-40 overflow-hidden relative">
+                    <img
+                      src={relScholarship.universityImage}
+                      alt={relScholarship.universityName}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  </figure>
+                  
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-gray-800 mb-2 line-clamp-2 min-h-[3.5rem]">
+                      {relScholarship.scholarshipName}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-3 flex items-center gap-1">
+                      <FaUniversity className="text-[#26CCC2]" size={14} />
+                      {relScholarship.universityName}
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-sm text-gray-600">Application Fee</span>
+                      <span className="font-bold text-[#26CCC2]">${relScholarship.applicationFees}</span>
+                    </div>
+                    <Link
+                      to={`/scholarship/${relScholarship._id}`}
+                      className="btn btn-sm w-full bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-[#26CCC2] hover:to-[#FFB76C] text-white border-none rounded-xl"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );
