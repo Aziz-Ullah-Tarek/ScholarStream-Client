@@ -143,7 +143,7 @@ const Register = () => {
               <div className="form-control">
                 <label className="label pb-2">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaLock className="text-purple-500" /> Password
+                    <FaLock className="text-[#26CCC2]" /> Password
                   </span>
                 </label>
                 <div className="relative">
@@ -168,7 +168,7 @@ const Register = () => {
               </div>
 
               {/* Submit Button */}
-              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-violet-600 to-pink-600 text-white border-0 hover:from-violet-700 hover:to-pink-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
+              <button type="submit" className="btn w-full h-11 text-base font-semibold bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white border-0 hover:from-[#FFB76C] hover:to-[#FFF57E] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all mt-4">
                 Create Account
               </button>
             </form>
