@@ -3,7 +3,7 @@ import { Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   FiHome, FiUser, FiPlus, FiList, FiUsers, FiBarChart2, 
-  FiMenu, FiX, FiLogOut, FiCheckCircle, FiHeart
+  FiMenu, FiX, FiLogOut, FiCheckCircle, FiHeart, FiStar
 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
@@ -49,6 +49,7 @@ const Dashboard = () => {
     { path: '/dashboard/my-profile', icon: FiUser, label: 'My Profile' },
     { path: '/dashboard/my-applications', icon: FiList, label: 'My Applications' },
     { path: '/dashboard/my-wishlist', icon: FiHeart, label: 'My Wishlist' },
+    { path: '/dashboard/my-reviews', icon: FiStar, label: 'My Reviews' },
   ];
 
   // Get links based on role
@@ -114,7 +115,7 @@ const Dashboard = () => {
               
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold transition-all shadow-md hover:shadow-lg"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#26CCC2] to-[#FFB76C] hover:from-red-600 hover:to-red-700 text-white font-semibold transition-all shadow-md hover:shadow-lg"
                 title="Logout"
               >
                 <FiLogOut size={18} />

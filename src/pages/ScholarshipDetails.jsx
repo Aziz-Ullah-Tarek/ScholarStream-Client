@@ -32,6 +32,11 @@ const ScholarshipDetails = () => {
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [wishlistId, setWishlistId] = useState(null);
   const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewComment, setReviewComment] = useState('');
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [userHasReviewed, setUserHasReviewed] = useState(false);
 
   useEffect(() => {
     fetchScholarshipDetails();
@@ -56,13 +61,19 @@ const ScholarshipDetails = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/reviews/scholarship/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/reviews/${id}`);
       setReviews(response.data);
       
       // Calculate average rating
       if (response.data.length > 0) {
         const avg = response.data.reduce((sum, review) => sum + review.ratingPoint, 0) / response.data.length;
         setAverageRating(avg);
+      }
+
+      // Check if current user has already reviewed
+      if (user?.email) {
+        const hasReviewed = response.data.some(review => review.userEmail === user.email);
+        setUserHasReviewed(hasReviewed);
       }
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -137,6 +148,63 @@ const ScholarshipDetails = () => {
       toast.error(error.response?.data?.message || 'Failed to update wishlist');
     } finally {
       setWishlistLoading(false);
+    }
+  };
+
+  const handleWriteReview = () => {
+    if (!user) {
+      toast.warning('Please login to write a review');
+      navigate('/login');
+      return;
+    }
+    if (userHasReviewed) {
+      toast.info('You have already reviewed this scholarship. You can edit your review from My Reviews page.');
+      return;
+    }
+    setShowReviewModal(true);
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    
+    if (!reviewComment.trim()) {
+      toast.error('Please write a review comment');
+      return;
+    }
+
+    if (reviewComment.trim().length < 10) {
+      toast.error('Review comment must be at least 10 characters');
+      return;
+    }
+
+    try {
+      setSubmittingReview(true);
+      const token = await user.getIdToken();
+      await axios.post(
+        'http://localhost:5000/api/reviews',
+        {
+          scholarshipId: id,
+          scholarshipName: scholarship.scholarshipName,
+          universityName: scholarship.universityName,
+          userName: user.displayName || 'Anonymous',
+          userEmail: user.email,
+          userImage: user.photoURL || '',
+          ratingPoint: reviewRating,
+          reviewComment: reviewComment.trim()
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      toast.success('Review submitted successfully!');
+      setShowReviewModal(false);
+      setReviewRating(5);
+      setReviewComment('');
+      fetchReviews();
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      toast.error(error.response?.data?.message || 'Failed to submit review');
+    } finally {
+      setSubmittingReview(false);
     }
   };
 
@@ -399,16 +467,31 @@ const ScholarshipDetails = () => {
                   <FiStar className="text-yellow-400 fill-yellow-400" />
                   Student Reviews
                 </h2>
-                {reviews.length > 0 && (
-                  <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-50 to-orange-50 px-4 py-2 rounded-xl border border-yellow-200">
-                    <div className="flex items-center gap-1">
-                      {renderStars(Math.round(averageRating))}
+                <div className="flex items-center gap-3">
+                  {reviews.length > 0 && (
+                    <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-50 to-orange-50 px-4 py-2 rounded-xl border border-yellow-200">
+                      <div className="flex items-center gap-1">
+                        {renderStars(Math.round(averageRating))}
+                      </div>
+                      <span className="font-bold text-gray-800">
+                        {averageRating.toFixed(1)} ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                      </span>
                     </div>
-                    <span className="font-bold text-gray-800">
-                      {averageRating.toFixed(1)} ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
-                    </span>
-                  </div>
-                )}
+                  )}
+                  {user && (
+                    <button
+                      onClick={handleWriteReview}
+                      disabled={userHasReviewed}
+                      className={`px-4 py-2 rounded-xl font-medium transition-all ${
+                        userHasReviewed
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white hover:shadow-lg'
+                      }`}
+                    >
+                      {userHasReviewed ? 'Already Reviewed' : 'Write a Review'}
+                    </button>
+                  )}
+                </div>
               </div>
 
               {reviews.length === 0 ? (
@@ -656,6 +739,95 @@ const ScholarshipDetails = () => {
           </motion.div>
         )}
       </div>
+
+      {/* Write Review Modal */}
+      {showReviewModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          >
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                <FiStar className="text-yellow-400" />
+                Write a Review
+              </h2>
+              <p className="text-gray-600 mt-1">{scholarship?.scholarshipName}</p>
+            </div>
+
+            <form onSubmit={handleSubmitReview} className="p-6">
+              {/* Rating */}
+              <div className="mb-6">
+                <label className="block text-sm font-bold text-gray-700 mb-3">
+                  Rating *
+                </label>
+                <div className="flex gap-2 items-center">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setReviewRating(star)}
+                      className="focus:outline-none transition-all"
+                    >
+                      <FiStar
+                        className={`text-3xl ${
+                          star <= reviewRating
+                            ? 'fill-amber-400 text-amber-400 scale-110'
+                            : 'text-gray-300 hover:text-amber-200'
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-3 text-lg font-bold text-gray-700">{reviewRating}/5</span>
+                </div>
+              </div>
+
+              {/* Comment */}
+              <div className="mb-6">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
+                  Review Comment *
+                </label>
+                <textarea
+                  value={reviewComment}
+                  onChange={(e) => setReviewComment(e.target.value)}
+                  rows="6"
+                  required
+                  minLength={10}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#26CCC2] focus:border-transparent resize-none"
+                  placeholder="Share your thoughts about this scholarship, university, or application process..."
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  Minimum 10 characters ({reviewComment.length}/10)
+                </p>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 justify-end">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowReviewModal(false);
+                    setReviewRating(5);
+                    setReviewComment('');
+                  }}
+                  className="px-6 py-3 border border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-all"
+                  disabled={submittingReview}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingReview || reviewComment.trim().length < 10}
+                  className="px-6 py-3 bg-gradient-to-r from-[#26CCC2] to-[#6AECE1] text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submittingReview ? 'Submitting...' : 'Submit Review'}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

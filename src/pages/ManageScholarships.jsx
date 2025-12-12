@@ -119,7 +119,7 @@ const ManageScholarships = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#26CCC2] via-[#FFB76C] to-[#6AECE1] rounded-3xl shadow-2xl p-8">
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#26CCC2]  to-[#6AECE1] rounded-3xl shadow-2xl p-8">
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -130,11 +130,11 @@ const ManageScholarships = () => {
                 Manage Scholarships
               </h1>
             </div>
-            <p className="text-[#6AECE1]/10 text-lg">Update or delete scholarship opportunities</p>
+            <p className="text-[#353e3d] text-lg">Update or delete scholarship opportunities</p>
           </div>
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 text-center">
             <p className="text-5xl font-bold text-white drop-shadow-lg">{scholarships.length}</p>
-            <p className="text-sm text-[#6AECE1]/10 mt-1 font-semibold">Total Scholarships</p>
+            <p className="text-sm text-[#364241] mt-1 font-semibold">Total Scholarships</p>
           </div>
         </div>
         {/* Decorative elements */}

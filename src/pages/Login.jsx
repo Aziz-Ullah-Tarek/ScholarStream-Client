@@ -82,7 +82,7 @@ const Login = () => {
               <div className="form-control">
                 <label className="label pb-1">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaEnvelope className="text-purple-500" /> Email Address
+                    <FaEnvelope className="text-[#26CCC2]" /> Email Address
                   </span>
                 </label>
                 <input
@@ -100,7 +100,7 @@ const Login = () => {
               <div className="form-control">
                 <label className="label pb-1">
                   <span className="label-text font-semibold text-gray-700 flex items-center gap-2 text-sm">
-                    <FaLock className="text-purple-500" /> Password
+                    <FaLock className="text-[#26CCC2]" /> Password
                   </span>
                 </label>
                 <div className="relative">

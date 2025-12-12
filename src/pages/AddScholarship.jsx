@@ -151,7 +151,7 @@ const AddScholarship = () => {
                   value={formData.scholarshipName}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="e.g., Presidential Scholarship"
+                  placeholder="write scholarship name here"
                   required
                 />
               </div>
@@ -250,7 +250,7 @@ const AddScholarship = () => {
                   value={formData.universityName}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="e.g., Harvard University"
+                  placeholder="write university name"
                   required
                 />
               </div>
@@ -265,7 +265,7 @@ const AddScholarship = () => {
                   value={formData.universityImage}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="give image url"
                   required
                 />
               </div>
@@ -282,7 +282,7 @@ const AddScholarship = () => {
                   value={formData.universityCountry}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="e.g., United States"
+                  placeholder="university country"
                   required
                 />
               </div>
@@ -297,7 +297,7 @@ const AddScholarship = () => {
                   value={formData.universityCity}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="e.g., Cambridge"
+                  placeholder="university city"
                   required
                 />
               </div>
@@ -312,7 +312,7 @@ const AddScholarship = () => {
                   value={formData.universityWorldRank}
                   onChange={handleChange}
                   className="input input-bordered w-full border-gray-300 focus:border-[#26CCC2] focus:outline-none focus:ring-2 focus:ring-[#6AECE1]/20 rounded-lg"
-                  placeholder="e.g., 1"
+                  placeholder="university world rank"
                   min="1"
                   required
                 />

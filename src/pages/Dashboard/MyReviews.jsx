@@ -22,11 +22,25 @@ const MyReviews = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/reviews/user/${user.email}`);
+      const token = await user.getIdToken();
+      const response = await fetch(`http://localhost:5000/api/reviews/user/${user.email}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
-      setReviews(data);
+      
+      // Ensure reviews is always an array
+      if (Array.isArray(data)) {
+        setReviews(data);
+      } else {
+        console.error('Expected array but got:', data);
+        setReviews([]);
+      }
     } catch (error) {
       console.error('Error fetching reviews:', error);
+      setReviews([]);
+      toast.error('Failed to load reviews');
     } finally {
       setLoading(false);
     }
