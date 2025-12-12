@@ -145,9 +145,9 @@ const Analytics = () => {
         <div className="bg-gradient-to-br from-[#26CCC2] to-[#26CCC2] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[#6AECE1]/10 text-sm font-medium">Total Users</p>
+              <p className="text-gray-600 text-sm font-medium">Total Users</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalUsers}</h3>
-              <p className="text-[#6AECE1]/20 text-xs mt-2">Registered on platform</p>
+              <p className="text-gray-600 text-xs mt-2">Registered on platform</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiUsers size={32} />
@@ -159,9 +159,9 @@ const Analytics = () => {
         <div className="bg-gradient-to-br from-[#FFB76C] to-[#FFB76C] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[#FFF57E]/10 text-sm font-medium">Total Scholarships</p>
+              <p className="text-gray-600 text-sm font-medium">Total Scholarships</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalScholarships}</h3>
-              <p className="text-[#FFF57E]/20 text-xs mt-2">Available opportunities</p>
+              <p className="text-gray-600 text-xs mt-2">Available opportunities</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiAward size={32} />
@@ -173,9 +173,9 @@ const Analytics = () => {
         <div className="bg-gradient-to-br from-[#6AECE1] to-[#26CCC2] rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[#6AECE1]/10 text-sm font-medium">Total Applications</p>
+              <p className="text-gray-600 text-sm font-medium">Total Applications</p>
               <h3 className="text-4xl font-bold mt-2">{stats.totalApplications}</h3>
-              <p className="text-[#6AECE1]/20 text-xs mt-2">Submitted by students</p>
+              <p className="text-gray-600 text-xs mt-2">Submitted by students</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiTrendingUp size={32} />
@@ -187,9 +187,9 @@ const Analytics = () => {
         <div className="bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl shadow-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-amber-100 text-sm font-medium">Fees Collected</p>
+              <p className="text-gray-600 text-sm font-medium">Fees Collected</p>
               <h3 className="text-4xl font-bold mt-2">${stats.totalFeesCollected.toLocaleString()}</h3>
-              <p className="text-amber-200 text-xs mt-2">Total revenue</p>
+              <p className="text-gray-600 text-xs mt-2">Total revenue</p>
             </div>
             <div className="bg-white/20 p-4 rounded-full">
               <FiDollarSign size={32} />
