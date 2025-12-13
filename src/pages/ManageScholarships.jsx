@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FiEdit2, FiTrash2, FiSearch, FiX, FiGrid, FiList, FiGlobe, FiCalendar, FiDollarSign, FiAward, FiBook, FiMapPin, FiSave } from 'react-icons/fi';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ConfirmDialog from '../components/ConfirmDialog';
+import API_URL from '../config/api';
 
 const ManageScholarships = () => {
   const { user } = useAuth();

@@ -11,6 +11,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import LoadingSpinner from '../components/LoadingSpinner';
+import API_URL from '../config/api';
 
 const Analytics = () => {
   const { user, userRole } = useAuth();

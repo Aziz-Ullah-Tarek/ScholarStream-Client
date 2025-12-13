@@ -7,6 +7,7 @@ import { FiHeart, FiTrash2, FiEye } from 'react-icons/fi';
 import { FaUniversity, FaDollarSign, FaGraduationCap } from 'react-icons/fa';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+import API_URL from '../../config/api';
 
 const MyWishlist = () => {
   const { user } = useAuth();

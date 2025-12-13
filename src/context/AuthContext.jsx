@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import axios from 'axios';
 import { auth } from '../firebase/firebase.config';
+import API_URL from '../config/api';
 
 const AuthContext = createContext();
 

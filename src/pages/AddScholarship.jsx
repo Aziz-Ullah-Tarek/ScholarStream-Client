@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FiSave, FiX, FiBook, FiGlobe, FiDollarSign, FiSettings } from 'react-icons/fi';
+import API_URL from '../config/api';
 
 const AddScholarship = () => {
   const { user } = useAuth();

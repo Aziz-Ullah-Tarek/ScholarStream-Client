@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FiEye, FiMessageSquare, FiCheck, FiX, FiEdit2, FiClock, FiCheckCircle, FiXCircle, FiDollarSign, FiMail, FiUser, FiBook, FiCalendar } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import LoadingSpinner from '../components/LoadingSpinner';
+import API_URL from '../config/api';
 
 const ManageApplications = () => {
   const { user } = useAuth();

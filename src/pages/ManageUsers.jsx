@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FiSearch, FiTrash2, FiShield } from 'react-icons/fi';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ConfirmDialog from '../components/ConfirmDialog';
+import API_URL from '../config/api';
 
 const ManageUsers = () => {
   const { user } = useAuth();

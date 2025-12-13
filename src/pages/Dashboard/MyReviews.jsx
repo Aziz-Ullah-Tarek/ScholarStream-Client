@@ -5,6 +5,7 @@ import { FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import API_URL from '../../config/api';
 
 const MyReviews = () => {
   const { user } = useAuth();
