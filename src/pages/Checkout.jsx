@@ -20,6 +20,8 @@ import { toast } from 'react-toastify';
 import API_URL from '../config/api';
 
 // Initialize Stripe
+console.log('Stripe Key:', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ? 'Loaded' : 'Missing');
+console.log('API URL:', API_URL);
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 // Card Element styling
@@ -73,9 +75,16 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
     setProcessing(true);
 
     try {
+      console.log('[Payment] Starting payment process...');
+      console.log('[Payment] User:', user?.email);
+      console.log('[Payment] Amount:', totalAmount);
+      console.log('[Payment] Scholarship:', scholarship.scholarshipName);
+      
       const token = await user.getIdToken();
+      console.log('[Payment] Firebase token obtained:', token ? 'Yes' : 'No');
 
       // Create payment intent on backend
+      console.log('[Payment] Creating payment intent...');
       const paymentIntentResponse = await axios.post(
         `${API_URL}/api/create-payment-intent`,
         {
@@ -84,10 +93,13 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
         },
         {
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
         }
       );
+      
+      console.log('[Payment] Payment intent created:', paymentIntentResponse.data);
 
       const { clientSecret } = paymentIntentResponse.data;
 
@@ -194,8 +206,34 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
         }
       }
     } catch (error) {
-      console.error('Payment error:', error);
-      toast.error(error.response?.data?.message || 'Payment failed. Please try again.');
+      console.error('[Payment] Payment error:', error);
+      console.error('[Payment] Error response:', error.response);
+      console.error('[Payment] Error data:', error.response?.data);
+      console.error('[Payment] Error message:', error.message);
+      console.error('[Payment] Full error object:', JSON.stringify(error.response?.data, null, 2));
+      
+      let errorMessage = 'Payment failed. Please try again.';
+      
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+        console.error('[Payment] Backend error message:', errorMessage);
+      } else if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+        console.error('[Payment] Backend error:', errorMessage);
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      // Check for common errors
+      if (error.message?.includes('getIdToken')) {
+        errorMessage = 'Authentication error. Please log in again.';
+      } else if (error.response?.status === 401) {
+        errorMessage = 'Authentication failed. Please log in again.';
+      } else if (error.response?.status === 500) {
+        errorMessage = 'Server error. Please try again or contact support.';
+      }
+      
+      toast.error(`Payment Error: ${errorMessage}`);
       setProcessing(false);
     }
   };

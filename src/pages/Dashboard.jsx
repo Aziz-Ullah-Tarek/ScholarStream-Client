@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
@@ -12,6 +12,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Debug logging
+  useEffect(() => {
+    console.log('[Dashboard] User:', user?.email, 'Role:', userRole);
+  }, [user, userRole]);
 
   // Check if user is authenticated
   if (!user) {

@@ -40,13 +40,20 @@ const ScholarshipDetails = () => {
   const [userHasReviewed, setUserHasReviewed] = useState(false);
 
   useEffect(() => {
+    // Redirect to login if user is not authenticated
+    if (!user) {
+      toast.info('Please login to view scholarship details');
+      navigate('/login', { state: { from: `/scholarship/${id}` } });
+      return;
+    }
+    
     fetchScholarshipDetails();
     fetchReviews();
     fetchRelatedScholarships();
     if (user) {
       checkWishlistStatus();
     }
-  }, [id, user]);
+  }, [id, user, navigate]);
 
   const fetchScholarshipDetails = async () => {
     try {

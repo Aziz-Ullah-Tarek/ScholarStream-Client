@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Test - ScholarStream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon {
+            font-size: 24px;
+        }
+        .test-card {
+            background: white;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 10px 0 0;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .warning {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💳 Payment Testing Guide</h1>
+        <p class="subtitle">Complete guide to test ScholarStream payment functionality</p>
+
+        <div class="card">
+            <h2><span class="icon">🎯</span> Quick Start</h2>
+            <div class="success">
+                <strong>✅ Everything is deployed and ready!</strong><br>
+                Frontend and backend are live on Vercel with all environment variables configured.
+            </div>
+            <a href="https://scholarstream-client36.vercel.app" class="button" target="_blank">🚀 Open ScholarStream</a>
+            <a href="https://dashboard.stripe.com/test/payments" class="button secondary" target="_blank">📊 View Stripe Dashboard</a>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🔐</span> Login Credentials</h2>
+            <table>
+                <tr>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                </tr>
+                <tr>
+                    <td><strong>Admin</strong></td>
+                    <td><code>admin@example.com</code></td>
+                    <td><code>Admin@12345</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Student</strong></td>
+                    <td colspan="2">Create new account or use existing</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">💳</span> Test Card Numbers</h2>
+            
+            <h3 style="color: #10b981; margin: 15px 0 10px 0;">✅ Successful Payment (Use This!)</h3>
+            <div class="test-card">4242 4242 4242 4242</div>
+            
+            <div class="info">
+                <strong>Other Test Details:</strong><br>
+                • Expiry: <code>12/25</code> (or any future date)<br>
+                • CVC: <code>123</code> (or any 3 digits)<br>
+                • Name: <code>Your Name</code>
+            </div>
+
+            <h3 style="color: #ef4444; margin: 15px 0 10px 0;">❌ Failed Payment Cards</h3>
+            <table>
+                <tr>
+                    <th>Card Number</th>
+                    <th>Error Type</th>
+                </tr>
+                <tr>
+                    <td><code>4000 0000 0000 0002</code></td>
+                    <td>Card Declined</td>
+                </tr>
+                <tr>
+                    <td><code>4000 0000 0000 9995</code></td>
+                    <td>Insufficient Funds</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📝</span> Testing Steps</h2>
+            <ol class="steps">
+                <li>Go to <span class="highlight">scholarstream-client36.vercel.app</span></li>
+                <li>Click <strong>Login</strong> and use student account (create new or existing)</li>
+                <li>Navigate to <strong>All Scholarships</strong> from the navbar</li>
+                <li>Click <strong>View Details</strong> on any scholarship</li>
+                <li>Click <strong>Apply Now</strong> button</li>
+                <li>Fill payment form:
+                    <ul style="margin-top: 10px; list-style: none;">
+                        <li>• Name: <code>John Doe</code></li>
+                        <li>• Card: <code>4242 4242 4242 4242</code></li>
+                        <li>• Expiry: <code>12/25</code></li>
+                        <li>• CVC: <code>123</code></li>
+                        <li>• ☑ Check "I agree to terms"</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Pay Now</strong></li>
+                <li>Wait for processing (2-3 seconds)</li>
+                <li>✅ You should see <strong>Payment Successful</strong> page!</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🔍</span> Debugging</h2>
+            <div class="warning">
+                <strong>⚠️ If payment fails, check these:</strong>
+            </div>
+            
+            <h3 style="margin: 15px 0 10px 0;">Open Browser Console (F12)</h3>
+            <p style="margin-bottom: 10px;">You should see these logs:</p>
+            <code style="display: block; padding: 10px; background: #1e293b; color: #10b981; margin: 10px 0;">
+                [Payment] Starting payment process...<br>
+                [Payment] User: your-email@example.com<br>
+                [Payment] Firebase token obtained: Yes<br>
+                [Payment] Payment intent created: {...}
+            </code>
+
+            <h3 style="margin: 15px 0 10px 0;">Common Issues & Fixes</h3>
+            <table>
+                <tr>
+                    <th>Error</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>"Authentication error"</td>
+                    <td>Logout and login again</td>
+                </tr>
+                <tr>
+                    <td>"Stripe has not loaded"</td>
+                    <td>Refresh page and wait 3 seconds</td>
+                </tr>
+                <tr>
+                    <td>"Enter cardholder name"</td>
+                    <td>Fill in your name</td>
+                </tr>
+                <tr>
+                    <td>"Agree to terms"</td>
+                    <td>Check the terms checkbox</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">✅</span> Verify Payment</h2>
+            
+            <h3 style="margin: 15px 0 10px 0;">In ScholarStream:</h3>
+            <ol class="steps">
+                <li>Go to <strong>Dashboard</strong></li>
+                <li>Click <strong>My Applications</strong></li>
+                <li>You should see your application with:
+                    <ul style="margin-top: 10px; list-style: none;">
+                        <li>• Status: <span class="highlight">Pending</span></li>
+                        <li>• Payment: <span style="background: #d1fae5; padding: 2px 8px; border-radius: 4px; color: #065f46; font-weight: 600;">Paid</span></li>
+                        <li>• Amount: $60.00</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 style="margin: 15px 0 10px 0;">In Stripe Dashboard:</h3>
+            <ol class="steps">
+                <li>Go to <a href="https://dashboard.stripe.com/test/payments" target="_blank">dashboard.stripe.com</a></li>
+                <li>Make sure <strong>Test Mode</strong> is ON (toggle top-right)</li>
+                <li>Click <strong>Payments</strong> in sidebar</li>
+                <li>You'll see your $60.00 payment listed as "Succeeded"</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">⚡</span> Fastest Test (60 seconds)</h2>
+            <ol class="steps">
+                <li>Open: <code>scholarstream-client36.vercel.app</code></li>
+                <li>Login or register</li>
+                <li>All Scholarships → Pick any → Apply Now</li>
+                <li>Name: <code>Test User</code> | Card: <code>4242 4242 4242 4242</code></li>
+                <li>Expiry: <code>12/25</code> | CVC: <code>123</code> | ☑ Terms</li>
+                <li>Pay Now → Done! ✅</li>
+            </ol>
+        </div>
+
+        <div class="info">
+            <strong>📌 Important Notes:</strong><br>
+            • All payments are in TEST MODE - no real money charged<br>
+            • Use test card <code>4242 4242 4242 4242</code> for success<br>
+            • Check browser console (F12) for detailed logs<br>
+            • View payments in Stripe Dashboard (Test Mode)<br>
+            • Payment includes application fee ($50) + service charge ($10) = $60
+        </div>
+
+        <a href="https://scholarstream-client36.vercel.app" class="button" target="_blank">🎓 Start Testing Now</a>
+        <a href="../PAYMENT_TESTING_GUIDE.md" class="button secondary">📖 Full Documentation</a>
+    </div>
+</body>
+</html>

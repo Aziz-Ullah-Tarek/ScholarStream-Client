@@ -45,11 +45,14 @@ export const AuthProvider = ({ children }) => {
   // Get user role from MongoDB
   const getUserRole = async (email) => {
     try {
+      console.log('[AuthContext] Fetching role for:', email);
       const response = await axios.get(`${API_URL}/api/users/check-role/${email}`);
-      setUserRole(response.data.role || 'student');
-      return response.data.role;
+      const role = response.data.role || 'student';
+      console.log('[AuthContext] Role fetched:', role);
+      setUserRole(role);
+      return role;
     } catch (error) {
-      console.error('Error getting user role:', error);
+      console.error('[AuthContext] Error getting user role:', error);
       setUserRole('student');
       return 'student';
     }
@@ -88,13 +91,16 @@ export const AuthProvider = ({ children }) => {
   // Observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log('[AuthContext] Auth state changed, user:', currentUser?.email);
       setUser(currentUser);
       if (currentUser) {
         // Save user to database if not exists
         await saveUserToDatabase(currentUser);
         // Get user role
-        await getUserRole(currentUser.email);
+        const role = await getUserRole(currentUser.email);
+        console.log('[AuthContext] Final role set:', role);
       } else {
+        console.log('[AuthContext] No user, setting default student role');
         setUserRole('student');
       }
       setLoading(false);
@@ -110,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     loginUser,
     googleLogin,
     logoutUser,
+    logOut: logoutUser, // Alias for consistency
     getUserRole
   };
 

@@ -4,7 +4,7 @@
 **ScholarStream** is a comprehensive scholarship management platform that connects students with global scholarship opportunities. The platform streamlines the scholarship search, application, and management process while providing robust admin tools for scholarship management.
 
 ## 🌐 Live URL
-**Frontend:** [https://scholarstream-client36.netlify.app](https://scholarstream-client36.netlify.app)  
+**Frontend:** [https://scholarstream-client36.vercel.app](https://scholarstream-client36.vercel.app)  
 **Backend API:** [https://scholarstream-server36.vercel.app](https://scholarstream-server36.vercel.app)
 
 ## 📋 Purpose

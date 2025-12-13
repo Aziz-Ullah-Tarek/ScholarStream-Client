@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
@@ -7,11 +7,13 @@ import { RiArrowRightUpBoxFill } from "react-icons/ri";
 const Navbar = () => {
   const { user, userRole, logoutUser } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await logoutUser();
       toast.success('Logged out successfully! 👋');
+      navigate('/'); // Redirect to home page after logout
     } catch (error) {
       toast.error('Logout failed. Please try again.');
     }

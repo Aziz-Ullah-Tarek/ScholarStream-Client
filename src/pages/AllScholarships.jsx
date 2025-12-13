@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaGraduationCap, FaDollarSign, FaCalendarAlt, FaTimes } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { toast } from 'react-toastify';
 import API_URL from '../config/api';
 
 const AllScholarships = () => {
@@ -40,11 +41,13 @@ const AllScholarships = () => {
 
   const fetchScholarships = async () => {
     try {
+      setLoading(true); // Ensure loading is true at the start
       const response = await axios.get(`${API_URL}/api/scholarships`);
       setScholarships(response.data);
       extractFilterOptions(response.data);
     } catch (error) {
       console.error('Error fetching scholarships:', error);
+      toast.error('Failed to load scholarships');
     } finally {
       setLoading(false);
     }
