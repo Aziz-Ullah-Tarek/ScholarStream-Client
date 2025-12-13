@@ -19,6 +19,7 @@ import {
 import { FaUniversity, FaTrophy, FaHeart } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+import API_URL from '../config/api';
 
 const ScholarshipDetails = () => {
   const { id } = useParams();
@@ -49,7 +50,7 @@ const ScholarshipDetails = () => {
 
   const fetchScholarshipDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/scholarships/${id}`);
+      const response = await axios.get(`${API_URL}/api/scholarships/${id}`);
       setScholarship(response.data);
     } catch (error) {
       console.error('Error fetching scholarship:', error);
@@ -61,7 +62,7 @@ const ScholarshipDetails = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/reviews/${id}`);
+      const response = await axios.get(`${API_URL}/api/reviews/${id}`);
       setReviews(response.data);
       
       // Calculate average rating
@@ -82,7 +83,7 @@ const ScholarshipDetails = () => {
 
   const fetchRelatedScholarships = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/scholarships/${id}/related`);
+      const response = await axios.get(`${API_URL}/api/scholarships/${id}/related`);
       setRelatedScholarships(response.data);
     } catch (error) {
       console.error('Error fetching related scholarships:', error);
@@ -94,7 +95,7 @@ const ScholarshipDetails = () => {
     try {
       const token = await user.getIdToken();
       const response = await axios.get(
-        `http://localhost:5000/api/wishlist/check/${user.email}/${id}`,
+        `${API_URL}/api/wishlist/check/${user.email}/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setIsInWishlist(response.data.inWishlist);
@@ -117,7 +118,7 @@ const ScholarshipDetails = () => {
 
       if (isInWishlist) {
         // Remove from wishlist
-        await axios.delete(`http://localhost:5000/api/wishlist/${wishlistId}`, {
+        await axios.delete(`${API_URL}/api/wishlist/${wishlistId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setIsInWishlist(false);
@@ -135,7 +136,7 @@ const ScholarshipDetails = () => {
           degree: scholarship.degree
         };
         const response = await axios.post(
-          'http://localhost:5000/api/wishlist',
+          `${API_URL}/api/wishlist`,
           wishlistData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -181,7 +182,7 @@ const ScholarshipDetails = () => {
       setSubmittingReview(true);
       const token = await user.getIdToken();
       await axios.post(
-        'http://localhost:5000/api/reviews',
+        `${API_URL}/api/reviews`,
         {
           scholarshipId: id,
           scholarshipName: scholarship.scholarshipName,

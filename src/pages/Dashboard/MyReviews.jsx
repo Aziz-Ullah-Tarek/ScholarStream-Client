@@ -23,7 +23,7 @@ const MyReviews = () => {
   const fetchReviews = async () => {
     try {
       const token = await user.getIdToken();
-      const response = await fetch(`http://localhost:5000/api/reviews/user/${user.email}`, {
+      const response = await fetch(`${API_URL}/api/reviews/user/${user.email}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -69,7 +69,7 @@ const MyReviews = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/reviews/${selectedReview._id}`, {
+      const response = await fetch(`${API_URL}/api/reviews/${selectedReview._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const MyReviews = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/reviews/${id}`, {
+      const response = await fetch(`${API_URL}/api/reviews/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${await user.getIdToken()}`

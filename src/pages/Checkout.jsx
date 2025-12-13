@@ -17,6 +17,7 @@ import {
 import { FaUniversity, FaStripe } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
+import API_URL from '../config/api';
 
 // Initialize Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -76,7 +77,7 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
 
       // Create payment intent on backend
       const paymentIntentResponse = await axios.post(
-        'http://localhost:5000/api/create-payment-intent',
+        `${API_URL}/api/create-payment-intent`,
         {
           amount: totalAmount,
           scholarshipName: scholarship.scholarshipName
@@ -131,7 +132,7 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
 
         try {
           const failedResponse = await axios.post(
-            'http://localhost:5000/api/applications',
+            `${API_URL}/api/applications`,
             failedApplicationData,
             {
               headers: {
@@ -178,7 +179,7 @@ const PaymentForm = ({ scholarship, totalAmount, onSuccess }) => {
         };
 
         const response = await axios.post(
-          'http://localhost:5000/api/applications',
+          `${API_URL}/api/applications`,
           applicationData,
           {
             headers: {
@@ -314,7 +315,7 @@ const Checkout = () => {
 
   const fetchScholarshipDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/scholarships/${id}`);
+      const response = await axios.get(`${API_URL}/api/scholarships/${id}`);
       setScholarship(response.data);
     } catch (error) {
       console.error('Error fetching scholarship:', error);

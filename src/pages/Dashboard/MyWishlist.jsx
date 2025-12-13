@@ -23,7 +23,7 @@ const MyWishlist = () => {
     try {
       const token = await user.getIdToken();
       const response = await axios.get(
-        `http://localhost:5000/api/wishlist/${user.email}`,
+        `${API_URL}/api/wishlist/${user.email}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setWishlist(response.data);
@@ -39,7 +39,7 @@ const MyWishlist = () => {
     try {
       const token = await user.getIdToken();
       await axios.delete(
-        `http://localhost:5000/api/wishlist/${wishlistItemId}`,
+        `${API_URL}/api/wishlist/${wishlistItemId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setWishlist(wishlist.filter(item => item._id !== wishlistItemId));

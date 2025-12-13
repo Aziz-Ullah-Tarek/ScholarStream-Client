@@ -38,18 +38,18 @@ const Analytics = () => {
       
       // Fetch users stats
       const usersStatsResponse = await axios.get(
-        'http://localhost:5000/api/users/stats/summary',
+        `${API_URL}/api/users/stats/summary`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // Fetch all scholarships
-      const scholarshipsResponse = await axios.get('http://localhost:5000/api/scholarships');
+      const scholarshipsResponse = await axios.get(`${API_URL}/api/scholarships`);
       
       // Fetch all applications (if endpoint exists)
       let totalApplications = 0;
       let totalFeesCollected = 0;
       try {
-        const applicationsResponse = await axios.get('http://localhost:5000/api/applications');
+        const applicationsResponse = await axios.get(`${API_URL}/api/applications`);
         totalApplications = applicationsResponse.data.length;
         totalFeesCollected = applicationsResponse.data.reduce(
           (sum, app) => sum + (app.totalFees || 0), 0

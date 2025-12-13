@@ -22,7 +22,7 @@ const ManageUsers = () => {
   const fetchUsers = async () => {
     try {
       const token = await user.getIdToken();
-      const response = await axios.get('http://localhost:5000/api/users', {
+      const response = await axios.get(`${API_URL}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +41,7 @@ const ManageUsers = () => {
     try {
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:5000/api/users/${email}/role`,
+        `${API_URL}/api/users/${email}/role`,
         { role: newRole },
         {
           headers: {
@@ -68,7 +68,7 @@ const ManageUsers = () => {
     setDeleteLoading(email);
     try {
       const token = await user.getIdToken();
-      await axios.delete(`http://localhost:5000/api/users/${email}`, {
+      await axios.delete(`${API_URL}/api/users/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

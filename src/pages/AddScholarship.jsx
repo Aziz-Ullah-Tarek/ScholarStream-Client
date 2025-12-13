@@ -68,7 +68,7 @@ const AddScholarship = () => {
         serviceCharge: parseFloat(formData.serviceCharge),
       };
 
-      const response = await axios.post('http://localhost:5000/api/scholarships', scholarshipData, {
+      const response = await axios.post(`${API_URL}/api/scholarships`, scholarshipData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

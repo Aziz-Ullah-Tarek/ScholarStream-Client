@@ -22,7 +22,7 @@ const ManageScholarships = () => {
 
   const fetchScholarships = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/scholarships');
+      const response = await axios.get(`${API_URL}/api/scholarships`);
       setScholarships(response.data);
     } catch (error) {
       console.error('Error fetching scholarships:', error);
@@ -36,7 +36,7 @@ const ManageScholarships = () => {
     setDeleteLoading(id);
     try {
       const token = await user.getIdToken();
-      await axios.delete(`http://localhost:5000/api/scholarships/${id}`, {
+      await axios.delete(`${API_URL}/api/scholarships/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -81,7 +81,7 @@ const ManageScholarships = () => {
         serviceCharge: parseFloat(updateFormData.serviceCharge),
       };
 
-      await axios.put(`http://localhost:5000/api/scholarships/${id}`, updatedData, {
+      await axios.put(`${API_URL}/api/scholarships/${id}`, updatedData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -25,7 +25,7 @@ const MyApplications = () => {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/applications/user/${user.email}`);
+      const response = await fetch(`${API_URL}/api/applications/user/${user.email}`);
       const data = await response.json();
       setApplications(data);
     } catch (error) {
@@ -37,7 +37,7 @@ const MyApplications = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/applications/${id}`, {
+      const response = await fetch(`${API_URL}/api/applications/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${await user.getIdToken()}`
@@ -71,7 +71,7 @@ const MyApplications = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/reviews', {
+      const response = await fetch(`${API_URL}/api/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

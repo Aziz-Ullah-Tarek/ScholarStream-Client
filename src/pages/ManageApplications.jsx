@@ -25,7 +25,7 @@ const ManageApplications = () => {
   const fetchApplications = async () => {
     try {
       const token = await user.getIdToken();
-      const response = await axios.get('http://localhost:5000/api/applications', {
+      const response = await axios.get(`${API_URL}/api/applications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setApplications(response.data);
@@ -42,7 +42,7 @@ const ManageApplications = () => {
       setUpdatingStatus(appId);
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:5000/api/applications/${appId}/status`,
+        `${API_URL}/api/applications/${appId}/status`,
         { applicationStatus: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ const ManageApplications = () => {
     try {
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:5000/api/applications/${selectedApp._id}/status`,
+        `${API_URL}/api/applications/${selectedApp._id}/status`,
         { 
           applicationStatus: selectedApp.applicationStatus,
           feedback: feedback.trim()

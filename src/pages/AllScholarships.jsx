@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaGraduationCap, FaDollarSign, FaCalendarAlt, FaTimes } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
+import API_URL from '../config/api';
 
 const AllScholarships = () => {
   const [scholarships, setScholarships] = useState([]);
@@ -39,7 +40,7 @@ const AllScholarships = () => {
 
   const fetchScholarships = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/scholarships');
+      const response = await axios.get(`${API_URL}/api/scholarships`);
       setScholarships(response.data);
       extractFilterOptions(response.data);
     } catch (error) {

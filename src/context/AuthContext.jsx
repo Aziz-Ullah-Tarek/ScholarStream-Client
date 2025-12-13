@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   // Save user to MongoDB
   const saveUserToDatabase = async (user) => {
     try {
-      await axios.post('http://localhost:5000/api/users', {
+      await axios.post(`${API_URL}/api/users`, {
         email: user.email,
         name: user.displayName || 'Anonymous',
         photoURL: user.photoURL || '',
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   // Get user role from MongoDB
   const getUserRole = async (email) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/check-role/${email}`);
+      const response = await axios.get(`${API_URL}/api/users/check-role/${email}`);
       setUserRole(response.data.role || 'student');
       return response.data.role;
     } catch (error) {

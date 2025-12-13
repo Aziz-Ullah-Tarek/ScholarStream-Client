@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import API_URL from '../config/api';
 import { FaSearch, FaMapMarkerAlt, FaGraduationCap, FaDollarSign, FaCalendarAlt } from 'react-icons/fa';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -18,7 +19,7 @@ const Home = () => {
 
   const fetchTopScholarships = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/scholarships');
+      const response = await axios.get(`${API_URL}/api/scholarships`);
       // Sort by application fees (lowest first) and get top 6
       const sorted = response.data.sort((a, b) => a.applicationFees - b.applicationFees).slice(0, 6);
       setScholarships(sorted);
@@ -31,7 +32,7 @@ const Home = () => {
 
   const fetchSuccessStories = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/success-stories');
+      const response = await axios.get(`${API_URL}/api/success-stories`);
       setSuccessStories(response.data);
     } catch (error) {
       console.error('Error fetching success stories:', error);
