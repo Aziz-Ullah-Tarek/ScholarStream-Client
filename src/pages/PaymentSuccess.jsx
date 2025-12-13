@@ -5,6 +5,7 @@ import { FiCheckCircle, FiArrowRight, FiDollarSign, FiCalendar } from 'react-ico
 import { FaUniversity, FaGraduationCap } from 'react-icons/fa';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
+import API_URL from '../config/api';
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();

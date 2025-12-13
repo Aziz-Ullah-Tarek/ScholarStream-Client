@@ -5,6 +5,7 @@ import { FiXCircle, FiArrowLeft, FiRefreshCw, FiAlertTriangle } from 'react-icon
 import { FaUniversity } from 'react-icons/fa';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
+import API_URL from '../config/api';
 
 const PaymentFailure = () => {
   const navigate = useNavigate();
